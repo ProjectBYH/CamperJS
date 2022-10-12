@@ -31,13 +31,13 @@ const LoginModal = ({ show, onHide }) => {
                   }, 
                   // {withCredentials: true}
                   ) 
-                  .then((response) => {
+                  .then((req, response) => {
                     if (response.data === "로그인 완료") {
                       //유저정보가 변한것이 마이페이지에 보여야된다
                       let token = response.data.token;
                       localStorage.setItem("token", token);
                       // console.log(localStorage.setItem("token", token))
-                      console.log("세션", response)
+                      console.log("세션", localStorage)
                       alert("로그인 완료")
                       // window.location.reload(process.env.REACT_APP_CAMPER_HOME)
                     }
