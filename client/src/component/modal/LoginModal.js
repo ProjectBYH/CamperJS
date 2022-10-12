@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Modal, Button, Form, Container, Col } from "react-bootstrap"
 import axios from "axios"
 axios.defaults.withCredentials = true;
-const LoginModal = ({ show, onHide }) => {
+const LoginModal = ({ show, onHide, setlogin }) => {
 
   const [userId, setUserId] = useState("");
   const [userIdError, setUserIdError] = useState(false);
@@ -31,15 +31,13 @@ const LoginModal = ({ show, onHide }) => {
                   }, 
                   // {withCredentials: true}
                   ) 
-                  .then((req, response) => {
-                    if (response.data === "로그인 완료") {
+                  .then((response) => {
+                    console.log("🚀 ~ file: LoginModal.js ~ line 35 ~ .then ~ response", response.data)
+                    if (response.data) {
                       //유저정보가 변한것이 마이페이지에 보여야된다
-                      let token = response.data.token;
-                      localStorage.setItem("token", token);
-                      // console.log(localStorage.setItem("token", token))
-                      console.log("세션", localStorage)
+                      localStorage.setItem('user', response.data)
                       alert("로그인 완료")
-                      // window.location.reload(process.env.REACT_APP_CAMPER_HOME)
+                      window.location.reload(process.env.REACT_APP_CAMPER_HOME)
                     }
                   })
                   .catch((err) => {
@@ -51,6 +49,7 @@ const LoginModal = ({ show, onHide }) => {
 
 
   return (
+    
     <Modal
       show = {show}
       onHide = {onHide}
