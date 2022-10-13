@@ -77,22 +77,15 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
       return res.status(200).json(JSON.stringify(users))
     })
   })(req, res, next)
-  console.log("🚀 ~ file: auth.js ~ line 80 ~ passport.authenticate ~ passport", passport.Authenticator.Strategy)
+ 
 })
 
 //로그아웃
-// router.post('/logout', function(req, res, next) {
-//   req.logout(function(err) {
-//     if (err) { return next(err); }
-//     res.redirect('/');
-//   });
-// });
-
-router.post("/logout", (req, res) => {
-  req.logout(req.user, err => {
-    if(err) return next(err);
-    res.redirect("/");
+router.post('/logout', function(req, res, next) {
+  req.logout(function(err) {
+    if (err) { return next(err); }
   });
+  // res.redirect("/")
 });
 
 //로그인유지 (미확인)
@@ -145,6 +138,7 @@ router.get(
     failureRedirect: '/',
 }),
   (req, res) => {
+    console.log("🚀 ~ file: auth.js ~ line 140 ~ res", res)
     res.redirect(process.env.CALL_BACK);
   },
 );
@@ -157,6 +151,7 @@ router.get(
   passport.authenticate('google', { failureRedirect: '/' }),
   
   (req, res) => {
+    console.log("🚀 ~ file: auth.js ~ line 153 ~ res", res)
     res.redirect(process.env.CALL_BACK);
   },
 );
