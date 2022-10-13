@@ -29,11 +29,11 @@ export const TitleContainer = styled.div`
   width: 70%;
   margin-left: 10rem;
   & > div > h1 {
-    font-family: 'MaplestoryOTFBold';
-    /* font-size : x-large; */
+    font-family: "MaplestoryOTFBold";
+    font-size: x-large;
   }
   & > div > h2 {
-    font-family: 'MaplestoryOTFBold';
+    font-family: "MaplestoryOTFBold";
     font-size: large;
   }
 `;
@@ -62,18 +62,18 @@ export const AirCoverContainer = styled.div`
   }
 
   & > nav > h1 {
-    font-family: 'MaplestoryOTFBold';
+    font-family: "MaplestoryOTFBold";
     color: red;
   }
 
   & > h1 {
-    font-family: 'MaplestoryOTFBold';
+    font-family: "MaplestoryOTFBold";
   }
   & > h2 {
-    font-family: 'MaplestoryOTFBold';
+    font-family: "MaplestoryOTFBold";
   }
   & > h3 {
-    font-family: 'MaplestoryOTFBold';
+    font-family: "MaplestoryOTFBold";
   }
 `;
 
@@ -91,7 +91,7 @@ export const TagContainer = styled.div`
     border-radius: 10% / 50%;
   }
   & > h2 {
-    font-family: 'MaplestoryOTFBold';
+    font-family: "MaplestoryOTFBold";
   }
 `;
 
