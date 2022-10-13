@@ -47,6 +47,7 @@ const ModalView = styled.div`
   & > h1 {
     margin-top: 1rem;
     margin-bottom: 1rem;
+    font-family: "MaplestoryOTFBold";
   }
   & > h2 {
     font-size: medium;
@@ -59,11 +60,13 @@ export const AirCoverContainer = styled.div`
   padding: 0 3% 0 3%;
 
   & > h3 {
-    font-size: medium;
+    font-size: normal;
+    font-family: "MaplestoryOTFBold";
   }
   & > h4 {
     font-weight: normal;
     margin-bottom: 0;
+    font-family: "MaplestoryOTFBold";
   }
 `;
 
@@ -116,12 +119,14 @@ const AircoverModal = ({ aircoverModalHandler }) => {
                 취소하는 경우, 별보러가자에서 기존 숙소와 비슷한 숙소 또는 더
                 나은 숙소를 찾아드리거나 요금을 환불해 드립니다.
               </h4>
+              <br/>
               <h3>체크인 지원 보장</h3>
               <h4>
                 숙소에 체크인할 수 없으며 호스트가 문제를 해결할 수 없는 경우,
                 예약한 기간 동안 머물 수 있도록 기존 숙소와 비슷한 숙소 또는 더
                 나은 숙소를 찾아드리거나 요금을 환불해 드립니다.
               </h4>
+              <br/>
               <h3>숙소 정확도 보장</h3>
               <h4>
                 냉장고가 고장 났는데 호스트가 쉽게 고칠 수 없는 경우, 침실 수가
@@ -130,6 +135,7 @@ const AircoverModal = ({ aircoverModalHandler }) => {
                 시점으로부터 3일 이내에 신고해주세요. 별보러가자에서 비슷한 숙소
                 또는 더 나은 숙소를 찾아드리거나 요금을 환불해드립니다.
               </h4>
+              <br/>
               <h3>24시간 안전 지원 라인</h3>
               <h4>
                 안전하지 않다고 느낄 경우, 24시간 언제든 특별 교육을 받은 안전
