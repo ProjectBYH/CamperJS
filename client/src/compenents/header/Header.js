@@ -1,163 +1,145 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { MdList,MdAccountCircle } from "react-icons/md";
-import SignUpModal from "../modal/SignUpModal"
+import { MdList, MdAccountCircle } from "react-icons/md";
+import SignUpModal from "../modal/SignUpModal";
 import LoginModal from "../modal/LoginModal";
 import axios from "axios";
-const CLIENT_ID = process.env.REACT_APP_KAKAO_REST_API_KEY
-const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI
+const CLIENT_ID = process.env.REACT_APP_KAKAO_REST_API_KEY;
+const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-const GOOGLE_URL = process.env.REACT_APP_GOOGLE_CLIENT_CALLBACK_URL
+const GOOGLE_URL = process.env.REACT_APP_GOOGLE_CLIENT_CALLBACK_URL;
 
 export const HeaderItemContainer = styled.div`
-
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: space-between;
-    padding: 0 5% 0 5%;
-    background-color: white;
-    position: absolute;
-    @media screen and (max-width: 1200px) {
-
-    }
-    @media screen and (max-width: 992px) {
-
-    }
-    @media screen and (max-width: 768px) {
-
-    }
-    @media screen and (max-width: 576px) {
-
-    }
-    @media screen and (max-width: 0px) {
-
-    }
-
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  padding: 0 5% 0 5%;
+  background-color: white;
+  position: absolute;
+  @media screen and (max-width: 1200px) {
+  }
+  @media screen and (max-width: 992px) {
+  }
+  @media screen and (max-width: 768px) {
+  }
+  @media screen and (max-width: 576px) {
+  }
+  @media screen and (max-width: 0px) {
+  }
 `;
 
 export const Logo = styled.button`
-    border : 0px solid black;
-    background: white;
-    width: 15%;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    cursor: pointer;
+  border: 0px solid black;
+  background: white;
+  width: 15%;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
 
-    @media screen and (max-width: 1200px) {
-
-    }
-    @media screen and (max-width: 992px) {
-
-    }
-    @media screen and (max-width: 768px) {
-        display: none;
-    }
-    @media screen and (max-width: 576px) {
-        display: none;
-    }
-    @media screen and (max-width: 0px) {
-        display: none;
-    }
+  @media screen and (max-width: 1200px) {
+  }
+  @media screen and (max-width: 992px) {
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
+  @media screen and (max-width: 0px) {
+    display: none;
+  }
 `;
 
 export const SearchContainer = styled.div`
-    width: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    @media screen and (max-width: 1200px) {
-
-    }
-    @media screen and (max-width: 992px) {
-
-    }
-    @media screen and (max-width: 768px) {
-        width: 100%;
-    }
-    @media screen and (max-width: 576px) {
-        width: 100%;
-    }
-    @media screen and (max-width: 0px) {
-        width: 100%;
-    }
+  @media screen and (max-width: 1200px) {
+  }
+  @media screen and (max-width: 992px) {
+  }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 576px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 0px) {
+    width: 100%;
+  }
 `;
 
 export const UserContainer = styled.div`
-    width: 20%;
-    display: flex;
-    justify-content: end;
-    align-items: center;
+  width: 20%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
+  @media screen and (max-width: 1200px) {
+  }
+  @media screen and (max-width: 992px) {
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
+  @media screen and (max-width: 0px) {
+    display: none;
+  }
+
+  a {
+    margin: 0.5rem;
+  }
+
+  div {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: 5px;
+    height: 30px;
+    white-space: nowrap;
 
     @media screen and (max-width: 1200px) {
-
     }
     @media screen and (max-width: 992px) {
-
+      display: none;
     }
     @media screen and (max-width: 768px) {
-        display: none;
+      display: none;
     }
     @media screen and (max-width: 576px) {
-        display: none;
+      display: none;
     }
     @media screen and (max-width: 0px) {
-        display: none;
+      display: none;
     }
-
-    a {
-        margin : 0.5rem;
-    }
-
-    div {
-       margin-top : auto;
-       margin-bottom: auto;
-       margin-left: auto;
-       margin-right: 5px;
-       height : 30px;
-       white-space : nowrap;
-
-       @media screen and (max-width: 1200px) {
-
-        }
-        @media screen and (max-width: 992px) {
-            display: none;
-        }
-        @media screen and (max-width: 768px) {
-            display: none;
-        }
-        @media screen and (max-width: 576px) {
-            display: none;
-        }
-        @media screen and (max-width: 0px) {
-            display: none;
-        }
-
-    }
+  }
 `;
 
 export const LogoImg = styled.img`
   display: block;
   width: 4.5rem;
   display: none;
-    @media screen and (max-width: 1200px) {
-        display: none;
-    }
-    @media screen and (max-width: 992px) {
-        display: block;
-    }
-    @media screen and (max-width: 768px) {
-
-    }
-    @media screen and (max-width: 576px) {
-
-    }
-    @media screen and (max-width: 0px) {
-
-    }
+  @media screen and (max-width: 1200px) {
+    display: none;
+  }
+  @media screen and (max-width: 992px) {
+    display: block;
+  }
+  @media screen and (max-width: 768px) {
+  }
+  @media screen and (max-width: 576px) {
+  }
+  @media screen and (max-width: 0px) {
+  }
 `;
 
 export const LogoImg2 = styled.img`
@@ -178,20 +160,20 @@ export const LogoTitle = styled.img`
 `;
 
 export const SearchBar = styled.button`
-    width: 450px;
-    display: flex;
-    background: white;
-    justify-content: space-around;
-    align-items: center;
-    border:0px solid gray;
-    padding: 10px;
-    border-radius: 15px;
-    box-shadow: 0.5px 0.5px 0.5px 0.5px gray;
-    cursor: pointer;
-    &:hover{
-        box-shadow: 2px 2px gray;
-        transition: 0.2s;
-    }
+  width: 450px;
+  display: flex;
+  background: white;
+  justify-content: space-around;
+  align-items: center;
+  border: 0px solid gray;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0.5px 0.5px 0.5px 0.5px gray;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 2px 2px gray;
+    transition: 0.2s;
+  }
 `;
 
 export const UserLogin = styled.button`
@@ -202,39 +184,37 @@ export const UserLogin = styled.button`
   align-items: center;
   cursor: pointer;
   border: 0px solid;
-  padding:1px;
+  padding: 1px;
   border-radius: 15px;
   box-shadow: 0.5px 0.5px 0.5px 0.5px gray;
-  &:hover{
+  &:hover {
     box-shadow: 2px 2px gray;
     transition: 0.2s;
-}
+  }
 `;
 
 export const LogOut = styled.button`
-    margin-top : auto;
-    margin-bottom : auto;
-    height: 2.3rem;
-    width : 5rem;
-    border-radius : 0.7rem;
-    border-color : grey;
-    color: grey;
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 2.3rem;
+  width: 5rem;
+  border-radius: 0.7rem;
+  border-color: grey;
+  color: grey;
 
-    @media screen and (max-width: 1200px) {
-
-    }
-    @media screen and (max-width: 992px) {
-        
-    }
-    @media screen and (max-width: 768px) {
-        display: none;
-    }
-    @media screen and (max-width: 576px) {
-        display: none;
-    }
-    @media screen and (max-width: 0px) {
-        display: none;
-    }
+  @media screen and (max-width: 1200px) {
+  }
+  @media screen and (max-width: 992px) {
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
+  @media screen and (max-width: 0px) {
+    display: none;
+  }
 `;
 
 // export const UserSignUp = styled.button`
@@ -246,65 +226,87 @@ export const LogOut = styled.button`
 //     border: 1px solid;
 //     border-radius: 15px;
 // `
-console.log(localStorage.user)
 
 function Header(resetCondition) {
-    const mainpage = ()=>{
-        // 새창으로 띄우기
-        // window.open("http://localhost:3000/")
-        // 기존창 홈페이지로 보내기
-        window.location.assign(process.env.REACT_APP_CAMPER_HOME)
-        resetCondition()
-    }
-    
-    
-    function logout(){
-        axios.post("http://localhost:4002/auth/logout",{headers:localStorage.user})
-        delete localStorage.user
-        window.location.assign(process.env.REACT_APP_CAMPER_HOME)
-    }
+  const mainpage = () => {
+    // 새창으로 띄우기
+    // window.open("http://localhost:3000/")
+    // 기존창 홈페이지로 보내기
+    window.location.assign(process.env.REACT_APP_CAMPER_HOME);
+    resetCondition();
+  };
 
-    const [signUpModalOn, setSignUpModalOn] = useState(false);
-    const [signInModalOn, setSignInModalOn] = useState(false);
-    return (
-        <>
-        <SignUpModal show={signUpModalOn} onHide={() => setSignUpModalOn(false)}/>
-        <LoginModal show={signInModalOn}  onHide={() => setSignInModalOn(false)} />
-        <HeaderItemContainer>
-            <Logo onClick={mainpage}>
-                    <LogoImg src='../별보러가자.ico' alt='logo' />
-                    <LogoImg2 src='../별보러가자2.ico' alt='logo' />
-                    <LogoTitle src="../logotitle.ico" alt="LogoTitle" />
-            </Logo>
-            <SearchContainer>
-                <SearchBar>
-                    <div>어디든지</div>
-                    <div>주말에</div>
-                    <div>게스트추가</div>
-                    <img src="../searchBtn.svg" alt="search" />
-                </SearchBar>
-            </SearchContainer>
-            { (localStorage.user)? <LogOut onClick={logout}>로그아웃</LogOut> :                
-                <UserContainer>
-                    <div
-                        type = 'button' 
-                        className = 'signUpBtn'
-                        onClick={() => setSignUpModalOn(true)}>회원가입</div>
-                     <a id="kakao" href={KAKAO_URL} className="kakaka">
-                        <img height="35" width="35" src="https://blog.kakaocdn.net/dn/clSAyO/btrOtG0YDP9/iOkNOf2B2Wmh5vnRA0jlsK/img.png" alt="카카오 로그인"/></a>
-                     <a id="google" href={GOOGLE_URL} className="gogogo">
-                     <img height="35" width="35" src="https://blog.kakaocdn.net/dn/bPlC9h/btrOwjRLzDR/9086k1qvpgYqZ3WS3TJzSk/img.png" alt="구글 로그인"/></a>
-                    <UserLogin>
-                        <MdList size="30"color="gray"/>
-                        <MdAccountCircle size="40"color="gray"
-                            onClick={() => setSignInModalOn(true)}/>
-                    </UserLogin>
-                </UserContainer>
-                
-            }
-        </HeaderItemContainer>
-        </>
-    )
-};
+  function logout() {
+    axios.post("http://localhost:4002/auth/logout", {
+      headers: localStorage.user,
+    });
+    delete localStorage.user;
+    window.location.assign(process.env.REACT_APP_CAMPER_HOME);
+  }
+
+  const [signUpModalOn, setSignUpModalOn] = useState(false);
+  const [signInModalOn, setSignInModalOn] = useState(false);
+  return (
+    <>
+      <SignUpModal
+        show={signUpModalOn}
+        onHide={() => setSignUpModalOn(false)}
+      />
+      <LoginModal show={signInModalOn} onHide={() => setSignInModalOn(false)} />
+      <HeaderItemContainer>
+        <Logo onClick={mainpage}>
+          <LogoImg src="../별보러가자.ico" alt="logo" />
+          <LogoImg2 src="../별보러가자2.ico" alt="logo" />
+          <LogoTitle src="../logotitle.ico" alt="LogoTitle" />
+        </Logo>
+        <SearchContainer>
+          <SearchBar>
+            <div>어디든지</div>
+            <div>주말에</div>
+            <div>게스트추가</div>
+            <img src="../searchBtn.svg" alt="search" />
+          </SearchBar>
+        </SearchContainer>
+        {localStorage.user ? (
+          <LogOut onClick={logout}>로그아웃</LogOut>
+        ) : (
+          <UserContainer>
+            <div
+              type="button"
+              className="signUpBtn"
+              onClick={() => setSignUpModalOn(true)}
+            >
+              회원가입
+            </div>
+            <a id="kakao" href={KAKAO_URL} className="kakaka">
+              <img
+                height="35"
+                width="35"
+                src="https://blog.kakaocdn.net/dn/clSAyO/btrOtG0YDP9/iOkNOf2B2Wmh5vnRA0jlsK/img.png"
+                alt="카카오 로그인"
+              />
+            </a>
+            <a id="google" href={GOOGLE_URL} className="gogogo">
+              <img
+                height="35"
+                width="35"
+                src="https://blog.kakaocdn.net/dn/bPlC9h/btrOwjRLzDR/9086k1qvpgYqZ3WS3TJzSk/img.png"
+                alt="구글 로그인"
+              />
+            </a>
+            <UserLogin>
+              <MdList size="30" color="gray" />
+              <MdAccountCircle
+                size="40"
+                color="gray"
+                onClick={() => setSignInModalOn(true)}
+              />
+            </UserLogin>
+          </UserContainer>
+        )}
+      </HeaderItemContainer>
+    </>
+  );
+}
 
 export default Header;
