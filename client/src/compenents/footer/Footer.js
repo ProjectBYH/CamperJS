@@ -200,7 +200,7 @@ function Footer() {
         <GitHubContainer>
           <Link to="/" style={{ textDecoration: "none", borderBottom: "none" }}>
             <img
-              src="./githubLogo.svg"
+              src="https://blog.kakaocdn.net/dn/bvLVRb/btrOwA0lAZN/SqfEuRyk0l1eQ7kpmZ9RR1/img.png"
               alt="GitImg"
               onClick={() => {
                 scrollToTop();
