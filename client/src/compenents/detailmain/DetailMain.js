@@ -30,7 +30,7 @@ export const TitleContainer = styled.div`
   margin-left: 10rem;
   & > div > h1 {
     font-family: 'MaplestoryOTFBold';
-    font-size: x-large;
+    /* font-size : x-large; */
   }
   & > div > h2 {
     font-family: 'MaplestoryOTFBold';
@@ -102,7 +102,6 @@ const DetailMain = ({ aircoverModalHandler, moreInfoModalHandler }) => {
     imageUrl,
     doNm,
     sigunguNm,
-    operDeCl,
     lineIntro,
     intro,
     addr1,
@@ -160,10 +159,10 @@ const DetailMain = ({ aircoverModalHandler, moreInfoModalHandler }) => {
           </div>
         </TitleContainer>
         <PotoContainer>
-          <img src={image1} className="image1" />
-          <img src={image2} className="image2" />
-          <img src={image3} className="image3" />
-          <img src={image4} className="image4" />
+          <img src={image1} className="image1" alt="image1" />
+          <img src={image2} className="image2" alt="image2" />
+          <img src={image3} className="image3" alt="image3" />
+          <img src={image4} className="image4" alt="image4" />
         </PotoContainer>
         <AirCoverContainer>
           <div>
