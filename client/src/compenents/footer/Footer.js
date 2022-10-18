@@ -231,9 +231,6 @@ export const LogOut = styled.button`
 /////////////////////////////////////////////////////////////////////////////////
 
 function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  };
 
   function logout() {
     axios.post("http://localhost:4002/auth/logout", {
@@ -253,9 +250,6 @@ function Footer() {
             <img
               src="https://blog.kakaocdn.net/dn/bvLVRb/btrOwA0lAZN/SqfEuRyk0l1eQ7kpmZ9RR1/img.png"
               alt="GitImg"
-              onClick={() => {
-                scrollToTop();
-              }}
             />
           </Link>
           <a
@@ -340,7 +334,7 @@ function Footer() {
             </LogOut>
     ) : (<>
       <LoginModal show={signInModalOn} onHide={() => setSignInModalOn(false)} />
-      <KakaoButton onClick={KAKAO_URL}>
+      <KakaoButton onClick={()=>KAKAO_URL}>
               <img
                 height="35"
                 width="35"
@@ -350,7 +344,7 @@ function Footer() {
               카카오
               </div>
       </KakaoButton>
-      <GoogleButton onClick={GOOGLE_URL}>      
+      <GoogleButton onClick={()=>GOOGLE_URL}>      
               <img
                 height="35"
                 width="35"
