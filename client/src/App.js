@@ -46,7 +46,7 @@ function App() {
   };
 
   const onTag = (searchText) => {
-    console.log("🚀 ~ file: App.js ~ line 50 ~ onTag ~ searchText", searchText)
+
     if(searchText==="산" || searchText==="계곡"|| searchText==="숲"){
       const filterLctCl = campingData.filter((camping) =>
         camping.lctCl.includes(searchText)
@@ -87,7 +87,10 @@ function App() {
           onSearch={onSearch}
           onTag={onTag}
           />} />
-        <Route path="/detailpage/:contentId" element={<Detailpage />} />
+        <Route path="/detailpage/:contentId" element={<Detailpage
+          resetCondition={resetCondition}
+          onSearch={onSearch}
+        />} />
       </Routes>
     </BrowserRouter>
   );

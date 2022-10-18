@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   height: 60rem;
   padding: 0;
   /* background-color: #f2d29b; */
-  
+
   /* padding: 0.5em; */
   border: none;
   display: flex;
@@ -23,7 +23,6 @@ const Wrapper = styled.div`
   &::-webkit-scrollbar {
     display: none; /* for Chrome, Safari, and Opera */
   }
-  
 `;
 
 // function findImg(imageUrl){
@@ -32,33 +31,34 @@ const Wrapper = styled.div`
 //     else {return imageUrl}
 //   }
 
-
-function Main({isLoading,filteredData}) {
-  
+function Main({ isLoading, filteredData }) {
   if (!filteredData) {
     return (
       <Wrapper>
-        {
-          new Array(60).fill(1).map((_, i) => {
-            return <Skeleton key={i} />;
-          })
-        }
+        {new Array(60).fill(1).map((_, i) => {
+          return <Skeleton key={i} />;
+        })}
       </Wrapper>
     );
   } else {
-    return(
+    return (
       <Wrapper>
-        {!isLoading 
+        {!isLoading
           ? new Array(60).fill(1).map((_, i) => {
-            return <Skeleton key={i} />;
-          })
-          :filteredData.map((camping) => (
-            camping.imageUrl &&
-          <Camping key={camping.contentId} camping = {camping} campingImg = {camping.imageUrl} />
-        ))}     
+              return <Skeleton key={i} />;
+            })
+          : filteredData.map(
+              (camping) =>
+                camping.imageUrl && (
+                  <Camping
+                    key={camping.contentId}
+                    camping={camping}
+                    campingImg={camping.imageUrl}
+                  />
+                )
+            )}
       </Wrapper>
-
-    )
-  };
-          }
+    );
+  }
+}
 export default Main;

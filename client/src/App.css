@@ -1,8 +1,7 @@
-
 .nav {
   height: 3vh;
-  width : 500px;
-  color : purple;
+  width: 500px;
+  color: purple;
 }
 
 .App {
@@ -45,12 +44,13 @@
 }
 
 @font-face {
-  font-family: 'MaplestoryOTFBold';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+  font-family: "MaplestoryOTFBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 * {
-  font-family: 'MaplestoryOTFBold';
+  font-family: "MaplestoryOTFBold";
 }

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { MdList, MdAccountCircle } from "react-icons/md";
+import { MdList,MdAccountCircle } from "react-icons/md";
+import {BiSearchAlt} from "react-icons/bi";
 import SignUpModal from "../modal/SignUpModal";
 import LoginModal from "../modal/LoginModal";
 import axios from "axios";
+import "./Header.css"
+import { useNavigate } from "react-router-dom";
 const CLIENT_ID = process.env.REACT_APP_KAKAO_REST_API_KEY;
 const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -159,8 +162,9 @@ export const LogoTitle = styled.img`
   }
 `;
 
-export const SearchBar = styled.button`
-  width: 450px;
+export const SearchBar = styled.div`
+  width: 300px;
+  height: 2.3rem;
   display: flex;
   background: white;
   justify-content: space-around;
@@ -170,15 +174,47 @@ export const SearchBar = styled.button`
   border-radius: 15px;
   box-shadow: 0.5px 0.5px 0.5px 0.5px gray;
   cursor: pointer;
-  &:hover {
-    box-shadow: 2px 2px gray;
-    transition: 0.2s;
+  input {
+    width: 230px;
+    border :1px;
+    text-align:center;
+    cursor: pointer;
   }
+  input:focus {
+    outline:none;
+    placeholder:none;
+  }
+  image {
+    border :0px;
+  }
+  button {
+    border :0px;
+    background: white;
+  }
+  input:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder { /* WebKit browsers */
+  color:transparent;
+}
+
+input:focus:-moz-placeholder,
+textarea:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:transparent;
+}
+
+input:focus::-moz-placeholder,
+textarea:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:transparent;
+}
+
+input:focus:-ms-input-placeholder,
+textarea:focus:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color:transparent;
+}
 `;
 
 export const UserLogin = styled.button`
   display: flex;
-  width: 6rem;
+  width: 5.5rem;
   background: white;
   justify-content: space-evenly;
   align-items: center;
@@ -201,7 +237,10 @@ export const LogOut = styled.button`
   border-radius: 0.7rem;
   border-color: grey;
   color: grey;
-
+  &:hover {
+    box-shadow: 2px 2px gray;
+    transition: 0.2s;
+  }
   @media screen and (max-width: 1200px) {
   }
   @media screen and (max-width: 992px) {
@@ -217,17 +256,10 @@ export const LogOut = styled.button`
   }
 `;
 
-// export const UserSignUp = styled.button`
-//     display: flex;
-//     width: 5rem;
-//     height: 3rem;
-//     background: purple;
-//     cursor: pointer;
-//     border: 1px solid;
-//     border-radius: 15px;
-// `
 
-function Header(resetCondition) {
+function Header({resetCondition,onSearch}) {
+
+  let navigate = useNavigate();
   const mainpage = () => {
     // 새창으로 띄우기
     // window.open("http://localhost:3000/")
@@ -246,6 +278,24 @@ function Header(resetCondition) {
 
   const [signUpModalOn, setSignUpModalOn] = useState(false);
   const [signInModalOn, setSignInModalOn] = useState(false);
+
+  const [searchText, setSearchText] = useState("");
+
+  const onClickSearch = () => {
+
+    onSearch(searchText);
+    navigate(`/`, {});
+  };
+  const onChangeHandler = (e) => {
+
+    setSearchText(e.target.value);
+  };
+  const onKeyPress = (e) => {
+    if(e.key === 'Enter') {
+      onSearch(searchText);
+    }
+   
+   }
   return (
     <>
       <SignUpModal
@@ -261,23 +311,16 @@ function Header(resetCondition) {
         </Logo>
         <SearchContainer>
           <SearchBar>
-            <div>어디든지</div>
-            <div>주말에</div>
-            <div>게스트추가</div>
-            <img src="../searchBtn.svg" alt="search" />
+            <input onKeyPress={onKeyPress} onChange={onChangeHandler} placeholder="언제나 어디서든 즐겁게!" />
+            <button onClick={onClickSearch}>
+            <BiSearchAlt size={30}alt="search" />
+            </button>
           </SearchBar>
         </SearchContainer>
         {localStorage.user ? (
           <LogOut onClick={logout}>로그아웃</LogOut>
         ) : (
           <UserContainer>
-            <div
-              type="button"
-              className="signUpBtn"
-              onClick={() => setSignUpModalOn(true)}
-            >
-              회원가입
-            </div>
             <a id="kakao" href={KAKAO_URL} className="kakaka">
               <img
                 height="35"

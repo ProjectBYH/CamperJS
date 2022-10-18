@@ -2,6 +2,7 @@
 import React, { useState } from "react"
 import { Modal, Button, Form, Container, Col } from "react-bootstrap"
 import axios from "axios"
+import SignUpModal from "../modal/SignUpModal";
 axios.defaults.withCredentials = true;
 
 const LoginModal = ({ show, onHide, setlogin }) => {
@@ -10,6 +11,8 @@ const LoginModal = ({ show, onHide, setlogin }) => {
   const [userIdError, setUserIdError] = useState(false);
   const [userPwd, setUserPwd] = useState("");
   const [userPwdError, setUserPwdError] = useState(false);
+  const [signUpModalOn, setSignUpModalOn] = useState(false);
+  
 
   const onChangeUserId = (e) => {
     if ((!e.target.value)) setUserIdError(false);
@@ -49,7 +52,11 @@ const LoginModal = ({ show, onHide, setlogin }) => {
                 // alert("이메일과 패스워드를 확인해주세요!");
 
   return (
-    
+    <>
+      <SignUpModal
+        show={signUpModalOn}
+        onHide={() => setSignUpModalOn(false)}
+      />
     <Modal
       show = {show}
       onHide = {onHide}
@@ -84,6 +91,11 @@ const LoginModal = ({ show, onHide, setlogin }) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+            <Button type="button" color="rimary"
+              onClick={() => setSignUpModalOn(true)}
+            >
+              회원가입
+            </Button>
           <Button onClick={logIn} variant="info" type="button">
               로그인
           </Button>
@@ -91,6 +103,7 @@ const LoginModal = ({ show, onHide, setlogin }) => {
         </Modal.Footer>
       </Container>
     </Modal>
+    </>
   )
 }
 

@@ -1,10 +1,15 @@
 import styled from "styled-components";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  MdAccountCircle,
-  MdFavoriteBorder,
-  MdOutlineSearch,
-} from "react-icons/md";
+import { MdAccountCircle } from "react-icons/md";
+import { GoSignOut } from "react-icons/go";
+import axios from "axios";
+import LoginModal from "../modal/LoginModal";
+
+const CLIENT_ID = process.env.REACT_APP_KAKAO_REST_API_KEY;
+const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+const GOOGLE_URL = process.env.REACT_APP_GOOGLE_CLIENT_CALLBACK_URL;
 
 export const FooterItemContainer = styled.div`
   width: 30rem;
@@ -131,7 +136,7 @@ export const TeamMember = styled.span`
   }
 `;
 
-export const LookAround = styled.button`
+export const KakaoButton = styled.button`
   width: 5rem;
   display: none;
   cursor: pointer;
@@ -147,10 +152,14 @@ export const LookAround = styled.button`
   @media screen and (max-width: 576px) {
   }
   @media screen and (max-width: 0px) {
+  }
+  &:hover {
+    box-shadow: 2px 2px gray;
+    transition: 0.2s;
   }
 `;
 
-export const PickList = styled.button`
+export const GoogleButton = styled.button`
   width: 5rem;
   display: none;
   cursor: pointer;
@@ -166,6 +175,10 @@ export const PickList = styled.button`
   @media screen and (max-width: 576px) {
   }
   @media screen and (max-width: 0px) {
+  }
+  &:hover {
+    box-shadow: 2px 2px gray;
+    transition: 0.2s;
   }
 `;
 
@@ -186,15 +199,50 @@ export const Login = styled.button`
   }
   @media screen and (max-width: 0px) {
   }
+  &:hover {
+    box-shadow: 2px 2px gray;
+    transition: 0.2s;
+  }
+`;
+
+export const LogOut = styled.button`
+  border : 0px;
+  background-color : white;
+  color: grey;
+  display: none;
+  &:hover {
+    box-shadow: 2px 2px gray;
+    transition: 0.2s;
+  }
+  @media screen and (max-width: 1200px) {
+  }
+  @media screen and (max-width: 992px) {
+  }
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+  @media screen and (max-width: 576px) {
+  }
+  @media screen and (max-width: 0px) {
+  }
+
 `;
 
 /////////////////////////////////////////////////////////////////////////////////
 
 function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  };
+
+  function logout() {
+    axios.post("http://localhost:4002/auth/logout", {
+      headers: localStorage.user,
+    });
+    delete localStorage.user;
+    window.location.assign(process.env.REACT_APP_CAMPER_HOME);
+  }
+
+  const [signInModalOn, setSignInModalOn] = useState(false);
   return (
+    
     <FooterItemContainer>
       <FooterTitle>
         <GitHubContainer>
@@ -202,20 +250,17 @@ function Footer() {
             <img
               src="https://blog.kakaocdn.net/dn/bvLVRb/btrOwA0lAZN/SqfEuRyk0l1eQ7kpmZ9RR1/img.png"
               alt="GitImg"
-              onClick={() => {
-                scrollToTop();
-              }}
             />
           </Link>
           <a
-            href="https://github.com/plutio1592/Camper"
+            href="https://github.com/ProjectBYH/CamperJS"
             target="_blank"
             rel="noopener noreferrer"
           >
             Camper
           </a>
           <a
-            href="https://github.com/plutio1592/Camper/wiki"
+            href="https://github.com/ProjectBYH/CamperJS/wiki"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -279,18 +324,44 @@ function Footer() {
           </a>
         </TeamMember>
       </TeamMemberContainer>
-      <LookAround>
-        <MdOutlineSearch size="30" color="red" />
-        <div>둘러보기</div>
-      </LookAround>
-      <PickList>
-        <MdFavoriteBorder size="30" color="gray" />
-        <div>위시리스트</div>
-      </PickList>
-      <Login>
-        <MdAccountCircle size="30" color="gray" />
+      
+    {localStorage.user ? (
+          <LogOut onClick={logout}>
+            <GoSignOut size="30" color="gray" />
+            <div>
+            로그아웃
+            </div>
+            </LogOut>
+    ) : (<>
+      <LoginModal show={signInModalOn} onHide={() => setSignInModalOn(false)} />
+      <KakaoButton onClick={()=>KAKAO_URL}>
+              <img
+                height="35"
+                width="35"
+                src="https://blog.kakaocdn.net/dn/clSAyO/btrOtG0YDP9/iOkNOf2B2Wmh5vnRA0jlsK/img.png"
+                alt="카카오 로그인"
+              /><div>
+              카카오
+              </div>
+      </KakaoButton>
+      <GoogleButton onClick={()=>GOOGLE_URL}>      
+              <img
+                height="35"
+                width="35"
+                src="https://blog.kakaocdn.net/dn/bPlC9h/btrOwjRLzDR/9086k1qvpgYqZ3WS3TJzSk/img.png"
+                alt="구글 로그인"
+              />
+              <div>
+              구글
+              </div>
+      </GoogleButton>
+      <Login onClick={() => setSignInModalOn(true)}>
+        <MdAccountCircle size="35" color="gray" />
         <div>로그인</div>
       </Login>
+      </>
+    )}
+ 
     </FooterItemContainer>
   );
 }
