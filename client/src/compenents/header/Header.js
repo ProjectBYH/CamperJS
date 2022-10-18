@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { MdList, MdAccountCircle } from "react-icons/md";
+import { MdList,MdAccountCircle } from "react-icons/md";
 import SignUpModal from "../modal/SignUpModal";
 import LoginModal from "../modal/LoginModal";
 import axios from "axios";
+import "./Header.css"
 const CLIENT_ID = process.env.REACT_APP_KAKAO_REST_API_KEY;
 const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -178,7 +179,7 @@ export const SearchBar = styled.button`
 
 export const UserLogin = styled.button`
   display: flex;
-  width: 6rem;
+  width: 5.5rem;
   background: white;
   justify-content: space-evenly;
   align-items: center;
@@ -201,7 +202,10 @@ export const LogOut = styled.button`
   border-radius: 0.7rem;
   border-color: grey;
   color: grey;
-
+  &:hover {
+    box-shadow: 2px 2px gray;
+    transition: 0.2s;
+  }
   @media screen and (max-width: 1200px) {
   }
   @media screen and (max-width: 992px) {
@@ -217,15 +221,6 @@ export const LogOut = styled.button`
   }
 `;
 
-// export const UserSignUp = styled.button`
-//     display: flex;
-//     width: 5rem;
-//     height: 3rem;
-//     background: purple;
-//     cursor: pointer;
-//     border: 1px solid;
-//     border-radius: 15px;
-// `
 
 function Header(resetCondition) {
   const mainpage = () => {
@@ -271,13 +266,6 @@ function Header(resetCondition) {
           <LogOut onClick={logout}>로그아웃</LogOut>
         ) : (
           <UserContainer>
-            <div
-              type="button"
-              className="signUpBtn"
-              onClick={() => setSignUpModalOn(true)}
-            >
-              회원가입
-            </div>
             <a id="kakao" href={KAKAO_URL} className="kakaka">
               <img
                 height="35"
