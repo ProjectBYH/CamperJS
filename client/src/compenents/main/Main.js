@@ -4,7 +4,7 @@ import Skeleton from "../Skeleton/Skeleton";
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 60rem;
+  height: 45rem;
   padding: 0;
   /* background-color: #f2d29b; */
   
@@ -13,8 +13,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  position: relative;
-  top: 20rem;
+  position: fixed;
+  top: 10rem;
   overflow-y: auto;
   overflow-x: auto;
   -ms-overflow-style: none; /* for Internet Explorer, Edge */
