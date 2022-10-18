@@ -26,11 +26,11 @@ const Wrapper = styled.div`
   
 `;
 
-function findImg(imageUrl){
+// function findImg(imageUrl){
 
-    if (!imageUrl) {return "img/image1.webp"}
-    else {return imageUrl}
-  }
+//     if (!imageUrl) {return "img/image1.webp"}
+//     else {return imageUrl}
+//   }
 
 
 function Main({isLoading,filteredData}) {
@@ -54,7 +54,7 @@ function Main({isLoading,filteredData}) {
           })
           :filteredData.map((camping) => (
             camping.imageUrl &&
-          <Camping key={camping.contentId} camping = {camping} campingImg ={findImg(camping.imageUrl)} />
+          <Camping key={camping.contentId} camping = {camping} campingImg = {camping.imageUrl} />
         ))}     
       </Wrapper>
 

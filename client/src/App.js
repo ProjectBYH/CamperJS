@@ -10,7 +10,7 @@ function App() {
   const [isLoading, setLoading] = useState(false);
   const [Error,setError]=useState(null)
   const [filteredData, setFilteredData] = useState(campingData)
-
+  // console.log('필터드가자',filteredData[0].imageUrl)
 
 
   const fetchcampingData = async() => {
