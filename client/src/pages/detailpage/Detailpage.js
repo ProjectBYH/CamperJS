@@ -66,11 +66,11 @@ export const FooterContainer = styled.div`
   }
 `;
 
-function Detailpage() {
+function Detailpage({resetCondition,onSearch}) {
   return (
     <Wrapper>
       <HeaderContainer>
-        <Header />
+        <Header resetCondition={resetCondition}  onSearch={onSearch}/>
       </HeaderContainer>
       <DetailMainContainer>
         <DetailMain />
