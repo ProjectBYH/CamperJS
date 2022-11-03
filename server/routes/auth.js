@@ -137,7 +137,15 @@ router.get(
     failureRedirect: "/",
   }),
   (req, res) => {
-    res.redirect(process.env.CALL_BACK);
+    // console.log("req", req.user.dataValues);
+    // console.log("res", res.user.dataValues);
+    const userKakao = req.user.dataValues;
+    // res.status(200).json(JSON.stringify(users)
+
+    res
+      .redirect(process.env.CALL_BACK)
+      .status(200)
+      .json(JSON.stringify(userKakao));
   }
 );
 

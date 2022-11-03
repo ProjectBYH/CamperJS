@@ -5,9 +5,15 @@ import {
   MdOutlineLocalGroceryStore,
   MdOutlineWaterDrop,
 } from "react-icons/md";
-import { FaMountain, FaCarSide, FaCaravan } from "react-icons/fa";
+import {
+  FaMountain,
+  FaCarSide,
+  FaCaravan,
+  FaUmbrellaBeach,
+} from "react-icons/fa";
 import { TbBeach } from "react-icons/tb";
 import {
+  GiFishingPole,
   GiElectric,
   GiCaravan,
   GiCampingTent,
@@ -521,6 +527,22 @@ function Tags({ onTag }) {
         >
           <MdOutlineLocalGroceryStore size={30} />
           <Tagname>편의점</Tagname>
+        </TagButton>
+        <TagButton
+          getColor16={getColor16}
+          onClick={onClickTagStore}
+          key="animalCmgCl"
+        >
+          <FaUmbrellaBeach size={30} />
+          <Tagname>해변</Tagname>
+        </TagButton>
+        <TagButton
+          getColor16={getColor16}
+          onClick={onClickTagStore}
+          key="animalCmgCl"
+        >
+          <GiFishingPole size={30} />
+          <Tagname>낚시</Tagname>
         </TagButton>
       </Tag>
     </TagItemContainer>

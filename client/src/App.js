@@ -7,7 +7,6 @@ import axios from "axios";
 
 function App() {
   const [campingData, setCampingData] = useState(null);
-  console.log(campingData);
   const [isLoading, setLoading] = useState(false);
   const [Error, setError] = useState(null);
   const [filteredData, setFilteredData] = useState(campingData);
@@ -68,7 +67,12 @@ function App() {
         (camping) => !(camping[searchText] === "불가능")
       );
       setFilteredData(filter);
-    } else if (searchText === "전기" ||searchText === "무선인터넷" ||searchText === "온수" ||searchText === "편의점") {
+    } else if (
+      searchText === "전기" ||
+      searchText === "무선인터넷" ||
+      searchText === "온수" ||
+      searchText === "편의점"
+    ) {
       const filterLctCl = campingData.filter((camping) =>
         camping.sbrsCl.includes(searchText)
       );
