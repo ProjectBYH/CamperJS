@@ -1,8 +1,14 @@
 import styled from "styled-components";
-import { MdPets } from "react-icons/md";
+import {
+  MdPets,
+  MdWifi,
+  MdOutlineLocalGroceryStore,
+  MdOutlineWaterDrop,
+} from "react-icons/md";
 import { FaMountain, FaCarSide, FaCaravan } from "react-icons/fa";
 import { TbBeach } from "react-icons/tb";
 import {
+  GiElectric,
   GiCaravan,
   GiCampingTent,
   GiGrass,
@@ -62,6 +68,10 @@ export const TagButton = styled.button`
   color: ${(props) => props.getColor10};
   color: ${(props) => props.getColor11};
   color: ${(props) => props.getColor12};
+  color: ${(props) => props.getColor13};
+  color: ${(props) => props.getColor14};
+  color: ${(props) => props.getColor15};
+  color: ${(props) => props.getColor16};
 `;
 export const Tagname = styled.div`
   margin: 0;
@@ -82,6 +92,10 @@ function Tags({ onTag }) {
   const [getColor10, setColor10] = useState("gray");
   const [getColor11, setColor11] = useState("gray");
   const [getColor12, setColor12] = useState("gray");
+  const [getColor13, setColor13] = useState("gray");
+  const [getColor14, setColor14] = useState("gray");
+  const [getColor15, setColor15] = useState("gray");
+  const [getColor16, setColor16] = useState("gray");
 
   const onClickTagMount = () => {
     setColor1("blue");
@@ -96,6 +110,10 @@ function Tags({ onTag }) {
     setColor10("gray");
     setColor11("gray");
     setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
     onTag("산");
   };
   const onClickTagValley = () => {
@@ -111,6 +129,10 @@ function Tags({ onTag }) {
     setColor10("gray");
     setColor11("gray");
     setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
     onTag("계곡");
   };
   const onClickTagForest = () => {
@@ -126,6 +148,10 @@ function Tags({ onTag }) {
     setColor10("gray");
     setColor11("gray");
     setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
     onTag("숲");
   };
   const onClickTagautoSiteCo = () => {
@@ -141,6 +167,10 @@ function Tags({ onTag }) {
     setColor10("gray");
     setColor11("gray");
     setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
     onTag("autoSiteCo");
   };
   const onClickTagglampSiteCo = () => {
@@ -156,6 +186,10 @@ function Tags({ onTag }) {
     setColor10("gray");
     setColor11("gray");
     setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
     onTag("glampSiteCo");
   };
   const onClickTagcaravSiteCo = () => {
@@ -171,6 +205,10 @@ function Tags({ onTag }) {
     setColor10("gray");
     setColor11("gray");
     setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
     onTag("caravSiteCo");
   };
   const onClickTagindvdlCaravSiteCo = () => {
@@ -186,6 +224,10 @@ function Tags({ onTag }) {
     setColor10("gray");
     setColor11("gray");
     setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
     onTag("indvdlCaravSiteCo");
   };
   const onClickTagsiteBottomCl1 = () => {
@@ -201,6 +243,10 @@ function Tags({ onTag }) {
     setColor10("gray");
     setColor11("gray");
     setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
     onTag("siteBottomCl1");
   };
   const onClickTagsiteBottomCl2 = () => {
@@ -216,6 +262,10 @@ function Tags({ onTag }) {
     setColor10("gray");
     setColor11("gray");
     setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
     onTag("siteBottomCl2");
   };
   const onClickTagsiteBottomCl3 = () => {
@@ -231,6 +281,10 @@ function Tags({ onTag }) {
     setColor9("gray");
     setColor11("gray");
     setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
     onTag("siteBottomCl3");
   };
   const onClickTagsiteBottomCl5 = () => {
@@ -246,6 +300,10 @@ function Tags({ onTag }) {
     setColor9("gray");
     setColor10("gray");
     setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
     onTag("siteBottomCl5");
   };
   const onClickTaganimalCmgCl = () => {
@@ -261,7 +319,88 @@ function Tags({ onTag }) {
     setColor9("gray");
     setColor10("gray");
     setColor11("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
     onTag("animalCmgCl");
+  };
+
+  const onClickTagElect = () => {
+    setColor13("blue");
+    setColor1("gray");
+    setColor2("gray");
+    setColor3("gray");
+    setColor4("gray");
+    setColor5("gray");
+    setColor6("gray");
+    setColor7("gray");
+    setColor8("gray");
+    setColor9("gray");
+    setColor10("gray");
+    setColor11("gray");
+    setColor12("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
+    onTag("전기");
+  };
+  const onClickTagWifi = () => {
+    setColor14("blue");
+    setColor1("gray");
+    setColor2("gray");
+    setColor3("gray");
+    setColor4("gray");
+    setColor5("gray");
+    setColor6("gray");
+    setColor7("gray");
+    setColor8("gray");
+    setColor9("gray");
+    setColor10("gray");
+    setColor11("gray");
+    setColor12("gray");
+    setColor13("gray");
+    setColor15("gray");
+    setColor16("gray");
+    onTag("무선인터넷");
+  };
+  const onClickTagHotwater = () => {
+    setColor15("blue");
+    setColor1("gray");
+    setColor2("gray");
+    setColor3("gray");
+    setColor4("gray");
+    setColor5("gray");
+    setColor6("gray");
+    setColor7("gray");
+    setColor8("gray");
+    setColor9("gray");
+    setColor10("gray");
+    setColor11("gray");
+    setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor16("gray");
+    onTag("온수");
+  };
+  const onClickTagStore = () => {
+    setColor16("blue");
+    setColor1("gray");
+    setColor2("gray");
+    setColor3("gray");
+    setColor4("gray");
+    setColor5("gray");
+    setColor6("gray");
+    setColor7("gray");
+    setColor8("gray");
+    setColor9("gray");
+    setColor10("gray");
+    setColor11("gray");
+    setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    onTag("편의점");
   };
 
   return (
@@ -350,6 +489,38 @@ function Tags({ onTag }) {
         >
           <MdPets size={30} />
           <Tagname>애완동물</Tagname>
+        </TagButton>
+        <TagButton
+          getColor13={getColor13}
+          onClick={onClickTagElect}
+          key="animalCmgCl"
+        >
+          <GiElectric size={30} />
+          <Tagname>전기</Tagname>
+        </TagButton>
+        <TagButton
+          getColor14={getColor14}
+          onClick={onClickTagWifi}
+          key="animalCmgCl"
+        >
+          <MdWifi size={30} />
+          <Tagname>무선인터넷</Tagname>
+        </TagButton>
+        <TagButton
+          getColor15={getColor15}
+          onClick={onClickTagHotwater}
+          key="animalCmgCl"
+        >
+          <MdOutlineWaterDrop size={30} />
+          <Tagname>온수</Tagname>
+        </TagButton>
+        <TagButton
+          getColor16={getColor16}
+          onClick={onClickTagStore}
+          key="animalCmgCl"
+        >
+          <MdOutlineLocalGroceryStore size={30} />
+          <Tagname>편의점</Tagname>
         </TagButton>
       </Tag>
     </TagItemContainer>

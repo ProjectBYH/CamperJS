@@ -68,8 +68,11 @@ function App() {
         (camping) => !(camping[searchText] === "불가능")
       );
       setFilteredData(filter);
-    } else if (searchText === "리셋") {
-      resetCondition();
+    } else if (searchText === "전기" ||searchText === "무선인터넷" ||searchText === "온수" ||searchText === "편의점") {
+      const filterLctCl = campingData.filter((camping) =>
+        camping.sbrsCl.includes(searchText)
+      );
+      setFilteredData(filterLctCl);
     }
   };
 
