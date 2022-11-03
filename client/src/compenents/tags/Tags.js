@@ -78,11 +78,15 @@ export const TagButton = styled.button`
   color: ${(props) => props.getColor14};
   color: ${(props) => props.getColor15};
   color: ${(props) => props.getColor16};
+  color: ${(props) => props.getColor17};
+  color: ${(props) => props.getColor18};
 `;
 export const Tagname = styled.div`
   margin: 0;
   border: 0px solid black;
   width: 75px;
+  font-size: 12px;
+  font-family: "MaplestoryOTFLight";
 `;
 
 function Tags({ onTag }) {
@@ -102,6 +106,8 @@ function Tags({ onTag }) {
   const [getColor14, setColor14] = useState("gray");
   const [getColor15, setColor15] = useState("gray");
   const [getColor16, setColor16] = useState("gray");
+  const [getColor17, setColor17] = useState("gray");
+  const [getColor18, setColor18] = useState("gray");
 
   const onClickTagMount = () => {
     setColor1("blue");
@@ -120,6 +126,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("산");
   };
   const onClickTagValley = () => {
@@ -139,6 +147,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("계곡");
   };
   const onClickTagForest = () => {
@@ -158,6 +168,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("숲");
   };
   const onClickTagautoSiteCo = () => {
@@ -177,6 +189,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("autoSiteCo");
   };
   const onClickTagglampSiteCo = () => {
@@ -196,6 +210,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("glampSiteCo");
   };
   const onClickTagcaravSiteCo = () => {
@@ -215,6 +231,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("caravSiteCo");
   };
   const onClickTagindvdlCaravSiteCo = () => {
@@ -234,6 +252,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("indvdlCaravSiteCo");
   };
   const onClickTagsiteBottomCl1 = () => {
@@ -253,6 +273,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("siteBottomCl1");
   };
   const onClickTagsiteBottomCl2 = () => {
@@ -272,6 +294,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("siteBottomCl2");
   };
   const onClickTagsiteBottomCl3 = () => {
@@ -291,6 +315,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("siteBottomCl3");
   };
   const onClickTagsiteBottomCl5 = () => {
@@ -310,6 +336,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("siteBottomCl5");
   };
   const onClickTaganimalCmgCl = () => {
@@ -329,6 +357,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("animalCmgCl");
   };
 
@@ -349,6 +379,8 @@ function Tags({ onTag }) {
     setColor14("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("전기");
   };
   const onClickTagWifi = () => {
@@ -368,6 +400,8 @@ function Tags({ onTag }) {
     setColor13("gray");
     setColor15("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("무선인터넷");
   };
   const onClickTagHotwater = () => {
@@ -387,6 +421,8 @@ function Tags({ onTag }) {
     setColor13("gray");
     setColor14("gray");
     setColor16("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("온수");
   };
   const onClickTagStore = () => {
@@ -406,9 +442,52 @@ function Tags({ onTag }) {
     setColor13("gray");
     setColor14("gray");
     setColor15("gray");
+    setColor17("gray");
+    setColor18("gray");
     onTag("편의점");
   };
-
+  const onClickTagBeach = () => {
+    setColor17("blue");
+    setColor1("gray");
+    setColor2("gray");
+    setColor3("gray");
+    setColor4("gray");
+    setColor5("gray");
+    setColor6("gray");
+    setColor7("gray");
+    setColor8("gray");
+    setColor9("gray");
+    setColor10("gray");
+    setColor11("gray");
+    setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
+    setColor18("gray");
+    onTag("해변");
+  };
+  const onClickTagFishing = () => {
+    setColor18("blue");
+    setColor1("gray");
+    setColor2("gray");
+    setColor3("gray");
+    setColor4("gray");
+    setColor5("gray");
+    setColor6("gray");
+    setColor7("gray");
+    setColor8("gray");
+    setColor9("gray");
+    setColor10("gray");
+    setColor11("gray");
+    setColor12("gray");
+    setColor13("gray");
+    setColor14("gray");
+    setColor15("gray");
+    setColor16("gray");
+    setColor17("gray");
+    onTag("낚시");
+  };
   return (
     <TagItemContainer>
       <Tag>
@@ -440,6 +519,10 @@ function Tags({ onTag }) {
           <GiCampingTent size={30} />
           <Tagname>글램핑</Tagname>
         </TagButton>
+        <TagButton getColor16={getColor17} onClick={onClickTagBeach} key="해변">
+          <FaUmbrellaBeach size={30} />
+          <Tagname>해변</Tagname>
+        </TagButton>
         <TagButton
           getColor6={getColor6}
           onClick={onClickTagcaravSiteCo}
@@ -465,6 +548,14 @@ function Tags({ onTag }) {
           <Tagname>잔디</Tagname>
         </TagButton>
         <TagButton
+          getColor10={getColor10}
+          onClick={onClickTagsiteBottomCl3}
+          key="siteBottomCl3"
+        >
+          <GiWoodBeam size={30} />
+          <Tagname>테크</Tagname>
+        </TagButton>
+        <TagButton
           getColor9={getColor9}
           onClick={onClickTagsiteBottomCl2}
           key="siteBottomCl2"
@@ -472,13 +563,10 @@ function Tags({ onTag }) {
           <GiStonePath size={30} />
           <Tagname>파쇄석</Tagname>
         </TagButton>
-        <TagButton
-          getColor10={getColor10}
-          onClick={onClickTagsiteBottomCl3}
-          key="siteBottomCl3"
-        >
-          <GiWoodBeam size={30} />
-          <Tagname>테크</Tagname>
+
+        <TagButton getColor13={getColor13} onClick={onClickTagElect} key="전기">
+          <GiElectric size={30} />
+          <Tagname>전기</Tagname>
         </TagButton>
         <TagButton
           getColor11={getColor11}
@@ -489,6 +577,14 @@ function Tags({ onTag }) {
           <Tagname>맨흙</Tagname>
         </TagButton>
         <TagButton
+          getColor14={getColor14}
+          onClick={onClickTagWifi}
+          key="무선인터넷"
+        >
+          <MdWifi size={30} />
+          <Tagname>무선인터넷</Tagname>
+        </TagButton>
+        <TagButton
           getColor12={getColor12}
           onClick={onClickTaganimalCmgCl}
           key="animalCmgCl"
@@ -496,53 +592,30 @@ function Tags({ onTag }) {
           <MdPets size={30} />
           <Tagname>애완동물</Tagname>
         </TagButton>
-        <TagButton
-          getColor13={getColor13}
-          onClick={onClickTagElect}
-          key="animalCmgCl"
-        >
-          <GiElectric size={30} />
-          <Tagname>전기</Tagname>
-        </TagButton>
-        <TagButton
-          getColor14={getColor14}
-          onClick={onClickTagWifi}
-          key="animalCmgCl"
-        >
-          <MdWifi size={30} />
-          <Tagname>무선인터넷</Tagname>
-        </TagButton>
+
         <TagButton
           getColor15={getColor15}
           onClick={onClickTagHotwater}
-          key="animalCmgCl"
+          key="온수"
         >
           <MdOutlineWaterDrop size={30} />
           <Tagname>온수</Tagname>
         </TagButton>
         <TagButton
-          getColor16={getColor16}
-          onClick={onClickTagStore}
-          key="animalCmgCl"
-        >
-          <MdOutlineLocalGroceryStore size={30} />
-          <Tagname>편의점</Tagname>
-        </TagButton>
-        <TagButton
-          getColor16={getColor16}
-          onClick={onClickTagStore}
-          key="animalCmgCl"
-        >
-          <FaUmbrellaBeach size={30} />
-          <Tagname>해변</Tagname>
-        </TagButton>
-        <TagButton
-          getColor16={getColor16}
-          onClick={onClickTagStore}
-          key="animalCmgCl"
+          getColor16={getColor18}
+          onClick={onClickTagFishing}
+          key="낚시"
         >
           <GiFishingPole size={30} />
           <Tagname>낚시</Tagname>
+        </TagButton>
+        <TagButton
+          getColor16={getColor16}
+          onClick={onClickTagStore}
+          key="편의점"
+        >
+          <MdOutlineLocalGroceryStore size={30} />
+          <Tagname>편의점</Tagname>
         </TagButton>
       </Tag>
     </TagItemContainer>
