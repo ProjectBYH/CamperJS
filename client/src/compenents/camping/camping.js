@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
 
 export const Wrapper = styled.div`
   width: 20em;
@@ -53,42 +52,7 @@ export const Description = styled.div`
     }
   }
 `;
-
 function Camping({ camping, campingImg }) {
-  // console.log('이미지 리사이징', campingImg)
-  const campingImgFil = campingImg.split(",")[0];
-  // console.log(campingImgFil);
-
-  //이미지를 선택할 ref 선언
-  const observeImage = useRef(null);
-
-  //화면에 나타나면 실행할 함수
-  const showImage = async ([campingImg], observer) => {
-    if (!campingImg.isIntersecting) {
-      return;
-    }
-    const imageUrl = [campingImg][0].target.dataset.src;
-    observeImage.current.src = imageUrl;
-    observer.unobserve(campingImg.target); // 함수가 실행될 때, 관찰을 끝내기.
-  };
-
-  //인스턴스 생성
-  useEffect(() => {
-    const observer = new IntersectionObserver(showImage, { threshold: 0.1 }); //메인이미지 관찰
-    observer.observe(observeImage.current);
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  const img = new Image();
-  img.src =
-    "https://gocamping.or.kr/upload/camp/4/3968FDzMGtUdjhbAC1BIXmYo.jpg";
-  console.log(img.naturalWidth);
-  //=> 500
-  console.log(img.naturalHeight);
-  console.log(observeImage);
-
   let navigate = useNavigate();
 
   const onClickMoveDVP = (contentId) => {
@@ -103,13 +67,9 @@ function Camping({ camping, campingImg }) {
       }}
     >
       <img
-        data-src={campingImgFil}
-        ref={observeImage}
-        // src={campingImgFil}
+        src={`${campingImg.split(",")[0]}`}
         loading="lazy"
         alt={camping.campingName}
-        height="10"
-        width="10"
       />
       <Description>
         <div className="title">

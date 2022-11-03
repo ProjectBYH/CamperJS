@@ -7,23 +7,22 @@ import axios from "axios";
 
 function App() {
   const [campingData, setCampingData] = useState(null);
+  console.log(campingData);
   const [isLoading, setLoading] = useState(false);
-  const [Error,setError]=useState(null)
-  const [filteredData, setFilteredData] = useState(campingData)
-  // console.log('필터드가자',filteredData[0].imageUrl)
+  const [Error, setError] = useState(null);
+  const [filteredData, setFilteredData] = useState(campingData);
 
-
-  const fetchcampingData = async() => {
+  const fetchcampingData = async () => {
     try {
       setError(null);
-      setCampingData(campingData);
+      // setCampingData(campingData);
       setLoading(true);
-      const response = await axios.get(process.env.REACT_APP_CAMPING)
+      const response = await axios.get(process.env.REACT_APP_CAMPING);
       setCampingData(response.data);
-      setFilteredData(response.data)
+      setFilteredData(response.data.filter((el) => el.lctCl.includes("산")));
     } catch (e) {
       setError(e);
-      console.log(Error)
+      console.log(Error);
       setLoading(false);
     }
   };
@@ -33,7 +32,6 @@ function App() {
   }, []);
 
   const onSearch = (searchText) => {
-
     const filteredCamping = campingData.filter(
       (camping) =>
         camping.campingName.includes(searchText) ||
@@ -46,32 +44,34 @@ function App() {
   };
 
   const onTag = (searchText) => {
-
-    if(searchText==="산" || searchText==="계곡"|| searchText==="숲"){
+    if (searchText === "산" || searchText === "계곡" || searchText === "숲") {
       const filterLctCl = campingData.filter((camping) =>
         camping.lctCl.includes(searchText)
-      )
+      );
       setFilteredData(filterLctCl);
+    } else if (
+      searchText === "autoSiteCo" ||
+      searchText === "glampSiteCo" ||
+      searchText === "caravSiteCo" ||
+      searchText === "indvdlCaravSiteCo" ||
+      searchText === "siteBottomCl1" ||
+      searchText === "siteBottomCl2" ||
+      searchText === "siteBottomCl3" ||
+      searchText === "siteBottomCl5"
+    ) {
+      const filterSite = campingData.filter(
+        (camping) => !(camping[searchText] === "0")
+      );
+      setFilteredData(filterSite);
+    } else if (searchText === "animalCmgCl") {
+      const filter = campingData.filter(
+        (camping) => !(camping[searchText] === "불가능")
+      );
+      setFilteredData(filter);
+    } else if (searchText === "리셋") {
+      resetCondition();
     }
-    else if(searchText==="autoSiteCo" ||
-            searchText==="glampSiteCo" ||
-            searchText==="caravSiteCo" ||
-            searchText==="indvdlCaravSiteCo" ||
-            searchText==="siteBottomCl1" ||
-            searchText==="siteBottomCl2" ||
-            searchText==="siteBottomCl3" ||
-            searchText==="siteBottomCl5"
-            ){
-      const filterSite = campingData.filter((camping) =>
-        !(camping[searchText] === "0"))
-      setFilteredData(filterSite)
-    }
-    else if(searchText==="animalCmgCl"){
-      const filter = campingData.filter((camping) =>
-      !(camping[searchText] === "불가능"))
-      setFilteredData(filter)
-    }
-  }
+  };
 
   const resetCondition = () => {
     setFilteredData(campingData);
@@ -80,17 +80,24 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Mainpage 
-          filteredData = {filteredData}
-          isLoading={isLoading}
-          resetCondition={resetCondition}
-          onSearch={onSearch}
-          onTag={onTag}
-          />} />
-        <Route path="/detailpage/:contentId" element={<Detailpage
-          resetCondition={resetCondition}
-          onSearch={onSearch}
-        />} />
+        <Route
+          path="/"
+          element={
+            <Mainpage
+              filteredData={filteredData}
+              isLoading={isLoading}
+              resetCondition={resetCondition}
+              onSearch={onSearch}
+              onTag={onTag}
+            />
+          }
+        />
+        <Route
+          path="/detailpage/:contentId"
+          element={
+            <Detailpage resetCondition={resetCondition} onSearch={onSearch} />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

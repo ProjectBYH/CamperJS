@@ -4,7 +4,6 @@ import Header from "../../compenents/header/Header";
 import Tags from "../../compenents/tags/Tags";
 import Main from "../../compenents/main/Main";
 
-
 export const MainPage = styled.div`
   display: flex;
   flex-direction: column;
@@ -73,23 +72,26 @@ export const FooterContainer = styled.div`
   }
 `;
 
-export const TopButtonContainer = styled.div`
-
-`
+export const TopButtonContainer = styled.div``;
 /////////////////////////////////////////////////////////////////////////////////
 
-function Mainpage({isLoading,filteredData,resetCondition,onSearch,onTag}) {
-
+function Mainpage({
+  isLoading,
+  filteredData,
+  resetCondition,
+  onSearch,
+  onTag,
+}) {
   return (
     <MainPage>
       <HeaderContainer>
-        <Header resetCondition={resetCondition}  onSearch={onSearch}/>
+        <Header resetCondition={resetCondition} onSearch={onSearch} />
       </HeaderContainer>
       <TagContainer>
-        <Tags  onTag={onTag}/>
+        <Tags onTag={onTag} />
       </TagContainer>
       <MainContainer>
-        <Main isLoading={isLoading} filteredData={filteredData}/>
+        <Main isLoading={isLoading} filteredData={filteredData} />
       </MainContainer>
       <FooterContainer>
         <Footer />

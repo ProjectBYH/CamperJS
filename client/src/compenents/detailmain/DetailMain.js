@@ -110,7 +110,6 @@ const DetailMain = ({ aircoverModalHandler, moreInfoModalHandler }) => {
     tel,
     posblFcltyCl,
   } = state;
-  console.log("🚀 ~ file: DetailMain.js ~ line 68 ~ DetailMain ~ state", state);
 
   let image1 = "";
   if (imageUrl !== "undefined") {
