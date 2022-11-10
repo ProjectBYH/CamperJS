@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import { MdList,MdAccountCircle } from "react-icons/md";
 import {BiSearchAlt} from "react-icons/bi";
@@ -278,8 +278,16 @@ function Header({resetCondition,onSearch}) {
 
   const [signUpModalOn, setSignUpModalOn] = useState(false);
   const [signInModalOn, setSignInModalOn] = useState(false);
-
   const [searchText, setSearchText] = useState("");
+  useEffect(() => {
+    logkeep();
+  }, []);
+  function logkeep(){
+    const user = axios.get("http://localhost:4002/auth/",{credentials: "include"})
+    console.log("🚀 ~ file: Header.js ~ line 285 ~ logkeep ~ user", user)
+  }
+  
+
 
   const onClickSearch = () => {
 

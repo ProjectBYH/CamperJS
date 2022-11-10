@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
 width: 20em;
-height: 23em;
+height: 25em;
 padding: 0.2em;
 margin: 0.5rem;
 border: none;
@@ -27,7 +27,7 @@ transition: transform 0.3s ease-out;
     
     object-fit: fill;
     width: 100%;
-    height: 70%;
+    height: 90%;
     border-radius: 3.5px 3.5px 0 0;
     box-shadow: 1px 0  2px gray;
     color: rgba(0,0,0,0);
