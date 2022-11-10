@@ -9,17 +9,8 @@ const router = express.Router();
 
 //로컬 회원가입
 router.post("/signup", isNotLoggedIn, async (req, res, next) => {
-  // const { username, password, name, email, phone } = req.body;
 
   try {
-    // const searchDuplicateId = await user.findOne({
-    //   where: {
-    //     username: req.body.username,
-    //   }
-    // })
-    // if (searchDuplicateId) {
-    //   return res.status(403).send('이미 사용중인 계정입니다.')
-    // }
 
     const searchDuplicateEmail = await user.findOne({
       where: {
@@ -28,17 +19,10 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
     });
     if (searchDuplicateEmail) {
       return res.status(200).send("이미 사용중인 이메일입니다.");
-      // return res.redirect('/join?error=exist')
+
     }
 
-    // const searchDuplicatePhone = await user.findOne({
-    //   where: {
-    //     email: req.body.Phone,
-    //   }
-    // })
-    // if (searchDuplicatePhone) {
-    //   return res.status(403).send('이미 사용중인 번호입니다.')
-    // }
+
 
     const hashedPassword = await bcrypt.hash(req.body.password, 12);
     await user.create({
@@ -84,18 +68,14 @@ router.post("/logout", function (req, res, next) {
       return next(err);
     }
   });
-  // res.redirect("/")
+  // res.redirect(process.env.CALL_BACK);
 });
 
 //로그인유지 (미확인)
-router.get("/", async (req, res, next) => {
+router.get("/", isLoggedIn ,async (req, res, next) => {
   try {
-    if (req.users) {
-      const users = await user.findOne({
-        where: { id: req.users.id },
-      });
-
-      return res.status(200).json(users);
+    if (req.user) {
+      res.json({"req.user": req.user})
     } else {
       return res.status(200).json(null);
     }
