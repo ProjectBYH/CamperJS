@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import { MdList,MdAccountCircle } from "react-icons/md";
-import {BiSearchAlt} from "react-icons/bi";
+import { MdList, MdAccountCircle } from "react-icons/md";
+import { BiSearchAlt } from "react-icons/bi";
 import SignUpModal from "../modal/SignUpModal";
 import LoginModal from "../modal/LoginModal";
 import axios from "axios";
-import "./Header.css"
+import "./Header.css";
 import { useNavigate } from "react-router-dom";
 const CLIENT_ID = process.env.REACT_APP_KAKAO_REST_API_KEY;
 const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
@@ -176,40 +176,44 @@ export const SearchBar = styled.div`
   cursor: pointer;
   input {
     width: 230px;
-    border :1px;
-    text-align:center;
+    border: 1px;
+    text-align: center;
     cursor: pointer;
   }
   input:focus {
-    outline:none;
-    placeholder:none;
+    outline: none;
+    placeholder: none;
   }
   image {
-    border :0px;
+    border: 0px;
   }
   button {
-    border :0px;
+    border: 0px;
     background: white;
   }
   input:focus::-webkit-input-placeholder,
-textarea:focus::-webkit-input-placeholder { /* WebKit browsers */
-  color:transparent;
-}
+  textarea:focus::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: transparent;
+  }
 
-input:focus:-moz-placeholder,
-textarea:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  color:transparent;
-}
+  input:focus:-moz-placeholder,
+  textarea:focus:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: transparent;
+  }
 
-input:focus::-moz-placeholder,
-textarea:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
-  color:transparent;
-}
+  input:focus::-moz-placeholder,
+  textarea:focus::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: transparent;
+  }
 
-input:focus:-ms-input-placeholder,
-textarea:focus:-ms-input-placeholder { /* Internet Explorer 10+ */
-  color:transparent;
-}
+  input:focus:-ms-input-placeholder,
+  textarea:focus:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: transparent;
+  }
 `;
 
 export const UserLogin = styled.button`
@@ -256,9 +260,7 @@ export const LogOut = styled.button`
   }
 `;
 
-
-function Header({resetCondition,onSearch}) {
-
+function Header({ resetCondition, onSearch }) {
   let navigate = useNavigate();
   const mainpage = () => {
     // 새창으로 띄우기
@@ -281,21 +283,25 @@ function Header({resetCondition,onSearch}) {
 
   const [searchText, setSearchText] = useState("");
 
+  const searchInput = useRef();
+
   const onClickSearch = () => {
-
     onSearch(searchText);
-    navigate(`/`, {});
+    navigate(`/`, { state: searchText });
+    searchInput.current.focus();
   };
-  const onChangeHandler = (e) => {
+  console.log(searchInput.current);
 
+  const onChangeHandler = (e) => {
     setSearchText(e.target.value);
+    searchInput.current.focus();
   };
   const onKeyPress = (e) => {
-    if(e.key === 'Enter') {
+    if (e.key === "Enter") {
       onSearch(searchText);
+      navigate(`/`, { state: searchText });
     }
-   
-   }
+  };
   return (
     <>
       <SignUpModal
@@ -311,9 +317,15 @@ function Header({resetCondition,onSearch}) {
         </Logo>
         <SearchContainer>
           <SearchBar>
-            <input onKeyPress={onKeyPress} onChange={onChangeHandler} placeholder="언제나 어디서든 즐겁게!" />
+            <input
+              onKeyPress={onKeyPress}
+              onChange={onChangeHandler}
+              placeholder="언제나 어디서든 즐겁게!"
+              value={searchText}
+              ref={searchInput}
+            />
             <button onClick={onClickSearch}>
-            <BiSearchAlt size={30}alt="search" />
+              <BiSearchAlt size={30} alt="search" />
             </button>
           </SearchBar>
         </SearchContainer>

@@ -43,7 +43,12 @@ function App() {
   };
 
   const onTag = (searchText) => {
-    if (searchText === "산" || searchText === "계곡" || searchText === "숲" || searchText === "해변") {
+    if (
+      searchText === "산" ||
+      searchText === "계곡" ||
+      searchText === "숲" ||
+      searchText === "해변"
+    ) {
       const filterLctCl = campingData.filter((camping) =>
         camping.lctCl.includes(searchText)
       );
@@ -66,28 +71,22 @@ function App() {
       const filteranimlCmgCl = campingData.filter(
         (camping) => !(camping[searchText] === "불가능")
       );
-<<<<<<< HEAD
-      setFilteredData(filter);
+      setFilteredData(filteranimlCmgCl);
     } else if (
       searchText === "전기" ||
       searchText === "무선인터넷" ||
       searchText === "온수" ||
       searchText === "편의점"
     ) {
-      const filterLctCl = campingData.filter((camping) =>
-=======
-      setFilteredData(filteranimlCmgCl);
-    } else if (searchText === "전기" ||searchText === "무선인터넷" ||searchText === "온수" ||searchText === "편의점") {
       const filterSbrsCl = campingData.filter((camping) =>
->>>>>>> c0679c83ca8e2f875a504a090e7528564bc24ce7
         camping.sbrsCl.includes(searchText)
       );
       setFilteredData(filterSbrsCl);
-    } else if(searchText === "낚시"){
-      const filterposblFcltyCl  = campingData.filter((camping) =>
-      camping.posblFcltyCl.includes(searchText)
-    );
-    setFilteredData(filterposblFcltyCl);
+    } else if (searchText === "낚시") {
+      const filterposblFcltyCl = campingData.filter((camping) =>
+        camping.posblFcltyCl.includes(searchText)
+      );
+      setFilteredData(filterposblFcltyCl);
     }
   };
 

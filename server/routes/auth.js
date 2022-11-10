@@ -139,13 +139,11 @@ router.get(
   (req, res) => {
     // console.log("req", req.user.dataValues);
     // console.log("res", res.user.dataValues);
-    const userKakao = req.user.dataValues;
+    const userKakao = JSON.stringify(req.user.dataValues);
     // res.status(200).json(JSON.stringify(users)
-
-    res
-      .redirect(process.env.CALL_BACK)
-      .status(200)
-      .json(JSON.stringify(userKakao));
+    // window.localStorage.setItem("userKakao", userKakao);
+    // res.status(200).json(JSON.stringify(userKakao));
+    res.status(200).redirect(process.env.CALL_BACK + { userKakao });
   }
 );
 
@@ -160,7 +158,19 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/" }),
 
   (req, res) => {
-    res.redirect(process.env.CALL_BACK);
+    const userGoogle = JSON.stringify(req.user.dataValues);
+    // console.log("req", req.user.dataValues);
+    // console.log("res", res);
+    // res.status(200).json(JSON.stringify(userGoogle));
+    // res.redirect(200, process.env.CALL_BACK);
+    // .redirect(process.env.CALL_BACK);
+    res
+      .status(200)
+      .send(
+        json(userGoogle),
+        redirect(process.env.CALL_BACK),
+        console.log("됨?")
+      );
   }
 );
 
