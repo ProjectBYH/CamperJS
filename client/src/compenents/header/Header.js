@@ -266,15 +266,18 @@ function Header({ resetCondition, onSearch }) {
       headers: localStorage.user,
     });
     delete localStorage.user;
+    setLoginState(null);
     window.location.assign(process.env.REACT_APP_CAMPER_HOME);
   }
 
   const [signUpModalOn, setSignUpModalOn] = useState(false);
   const [signInModalOn, setSignInModalOn] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [loginState, setLoginState] = useState(null)
+
   function logkeep() {
-    axios.get("https://localhost:4002/auth/debug").then(function (res) {
-      console.log("res DATA", res.data);
+    axios.get("http://localhost:4002/auth/").then(function (res) {
+      setLoginState(res.data);
     });
   }
   useEffect(() => {
@@ -317,9 +320,7 @@ function Header({ resetCondition, onSearch }) {
             </button>
           </SearchBar>
         </SearchContainer>
-        {localStorage.user ? (
-          <LogOut onClick={logout}>로그아웃</LogOut>
-        ) : (
+        {loginState==="로그인이 필요합니다."?  (
           <UserContainer>
             <a id="kakao" href={KAKAO_URL} className="kakaka">
               <img
@@ -337,16 +338,17 @@ function Header({ resetCondition, onSearch }) {
                 alt="구글 로그인"
               />
             </a>
-            <UserLogin>
+            <UserLogin onClick={() => setSignInModalOn(true)}>
               <MdList size="30" color="gray" />
               <MdAccountCircle
                 size="40"
                 color="gray"
-                onClick={() => setSignInModalOn(true)}
               />
             </UserLogin>
           </UserContainer>
-        )}
+        ):(
+          <LogOut onClick={logout}>로그아웃</LogOut>
+        ) }
       </HeaderItemContainer>
     </>
   );
