@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MdList, MdAccountCircle } from "react-icons/md";
 import { BiSearchAlt } from "react-icons/bi";
@@ -41,7 +41,6 @@ export const Logo = styled.button`
   justify-content: start;
   align-items: center;
   cursor: pointer;
-
   @media screen and (max-width: 1200px) {
   }
   @media screen and (max-width: 992px) {
@@ -62,7 +61,6 @@ export const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   @media screen and (max-width: 1200px) {
   }
   @media screen and (max-width: 992px) {
@@ -83,7 +81,6 @@ export const UserContainer = styled.div`
   display: flex;
   justify-content: end;
   align-items: center;
-
   @media screen and (max-width: 1200px) {
   }
   @media screen and (max-width: 992px) {
@@ -97,11 +94,9 @@ export const UserContainer = styled.div`
   @media screen and (max-width: 0px) {
     display: none;
   }
-
   a {
     margin: 0.5rem;
   }
-
   div {
     margin-top: auto;
     margin-bottom: auto;
@@ -109,7 +104,6 @@ export const UserContainer = styled.div`
     margin-right: 5px;
     height: 30px;
     white-space: nowrap;
-
     @media screen and (max-width: 1200px) {
     }
     @media screen and (max-width: 992px) {
@@ -196,19 +190,16 @@ export const SearchBar = styled.div`
     /* WebKit browsers */
     color: transparent;
   }
-
   input:focus:-moz-placeholder,
   textarea:focus:-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
     color: transparent;
   }
-
   input:focus::-moz-placeholder,
   textarea:focus::-moz-placeholder {
     /* Mozilla Firefox 19+ */
     color: transparent;
   }
-
   input:focus:-ms-input-placeholder,
   textarea:focus:-ms-input-placeholder {
     /* Internet Explorer 10+ */
@@ -280,26 +271,25 @@ function Header({ resetCondition, onSearch }) {
 
   const [signUpModalOn, setSignUpModalOn] = useState(false);
   const [signInModalOn, setSignInModalOn] = useState(false);
-
   const [searchText, setSearchText] = useState("");
-
-  const searchInput = useRef();
-
+  function logkeep() {
+    axios.get("https://localhost:4002/auth/debug").then(function (res) {
+      console.log("res DATA", res.data);
+    });
+  }
+  useEffect(() => {
+    logkeep();
+  });
   const onClickSearch = () => {
     onSearch(searchText);
-    navigate(`/`, { state: searchText });
-    searchInput.current.focus();
+    navigate(`/`, {});
   };
-  console.log(searchInput.current);
-
   const onChangeHandler = (e) => {
     setSearchText(e.target.value);
-    searchInput.current.focus();
   };
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
       onSearch(searchText);
-      navigate(`/`, { state: searchText });
     }
   };
   return (
@@ -321,8 +311,6 @@ function Header({ resetCondition, onSearch }) {
               onKeyPress={onKeyPress}
               onChange={onChangeHandler}
               placeholder="언제나 어디서든 즐겁게!"
-              value={searchText}
-              ref={searchInput}
             />
             <button onClick={onClickSearch}>
               <BiSearchAlt size={30} alt="search" />

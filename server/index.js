@@ -35,13 +35,13 @@ app.use(
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   session({
-    saveUninitialized: true, //초기화 되지 않은 상태로 스토어에 저장되는 세션
+    saveUninitialized: false, //초기화 되지 않은 상태로 스토어에 저장되는 세션
     resave: false, //세션을 항상 저장할 것 인가?
     secret: process.env.COOKIE_SECRET, //세션 암호화
     cookie: {
-      httpOnly: false, //브라우저에서는 쿠키에 접근할 수 없도록 제한 (XSS 공격 차단)
+      httpOnly: true, //브라우저에서는 쿠키에 접근할 수 없도록 제한 (XSS 공격 차단)
       secure: false, //HTTPS가 아닌 통신에서는 쿠키를 전송하지 않음
-      sameSite: "none",
+      // sameSite: "none",
       maxAge: 1000 * 60 * 60 * 24 * 7,
     },
   })
@@ -53,9 +53,9 @@ app.use(passport.session());
 app.use("/camping", campingRouter);
 // app.use('/imageurl', imageUrlRouter)
 app.use("/auth", authRouter);
-app.get("/", function (req, res) {
-  res.send("안녕 세계!");
-});
+// app.get("/", function (req, res) {
+//   res.send("안녕 세계!");
+// });
 
 const HTTPS_PORT = process.env.DATABASE_PORT || 4002;
 

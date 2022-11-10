@@ -14,7 +14,6 @@ function App() {
   const fetchcampingData = async () => {
     try {
       setError(null);
-      // setCampingData(campingData);
       setLoading(true);
       const response = await axios.get(process.env.REACT_APP_CAMPING);
       setCampingData(response.data);

@@ -132,24 +132,26 @@ router.get("/kakao", passport.authenticate("kakao"));
 
 router.get(
   "/kakao/callback",
-
+  isNotLoggedIn,
   passport.authenticate("kakao", {
     failureRedirect: "/",
   }),
   (req, res) => {
     // console.log("req", req.user.dataValues);
     // console.log("res", res.user.dataValues);
-    const userKakao = JSON.stringify(req.user.dataValues);
+    // const userKakao = JSON.stringify(req.user.dataValues);
     // res.status(200).json(JSON.stringify(users)
     // window.localStorage.setItem("userKakao", userKakao);
     // res.status(200).json(JSON.stringify(userKakao));
-    res.status(200).redirect(process.env.CALL_BACK + { userKakao });
+    res.redirect(process.env.CALL_BACK);
+    // res.status(200).redirect(process.env.CALL_BACK + { userKakao });
   }
 );
 
 //구글 로그인
 router.get(
   "/google",
+  isNotLoggedIn,
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
@@ -158,20 +160,27 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/" }),
 
   (req, res) => {
-    const userGoogle = JSON.stringify(req.user.dataValues);
+    // const userGoogle = JSON.stringify(req.user.dataValues);
     // console.log("req", req.user.dataValues);
     // console.log("res", res);
     // res.status(200).json(JSON.stringify(userGoogle));
-    // res.redirect(200, process.env.CALL_BACK);
+    res.redirect(process.env.CALL_BACK);
     // .redirect(process.env.CALL_BACK);
-    res
-      .status(200)
-      .send(
-        json(userGoogle),
-        redirect(process.env.CALL_BACK),
-        console.log("됨?")
-      );
+    // res
+    //   .status(200)
+    //   .send(
+    //     json(userGoogle),
+    //     redirect(process.env.CALL_BACK),
+    //     console.log("됨?")
+    //   );
   }
 );
-
+//디버그
+router.get("/debug", (req, res) => {
+  res.json({
+    "req.session": req.session,
+    "req.user": req.user,
+    "req._passport": req._passport,
+  });
+});
 module.exports = router;
