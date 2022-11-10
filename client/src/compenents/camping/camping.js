@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 export const Wrapper = styled.div`
   width: 20em;
-  height: 23em;
+  height: 25em;
   padding: 0.2em;
   margin: 0.5rem;
   border: none;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  /* box-shadow: 0.1rem 0.1rem 0.2rem  gray; */
   transition: transform 0.3s ease-out;
-  /* font-family: "EarlyFontDiary"; */
+
   &:hover {
     .title > b {
       color: black;
@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
   & > img {
     object-fit: fill;
     width: 100%;
-    height: 70%;
+    height: 90%;
     border-radius: 3.5px 3.5px 0 0;
     box-shadow: 1px 0 2px gray;
   }
@@ -32,23 +32,31 @@ export const Wrapper = styled.div`
 
 export const Description = styled.div`
   text-align: start;
-  height: 7rem;
+  height: 6rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   color: black;
   background-color: #ffffff;
+  padding-top: 0.3rem;
+  padding-left: 0.5rem;
   & > div {
-    width: 80%;
+    width: 100%;
     text-align: start;
-    padding-left: 0.5rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-
-    & > b {
+    
+  & > b {
       color: #000000;
       font-size: large;
+    }
+    &>div{
+      font-size: medium;
+      font-family: MaplestoryOTFLight;
+      color: gray;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 `;
@@ -57,6 +65,7 @@ function Camping({ camping, campingImg }) {
 
   const onClickMoveDVP = (contentId) => {
     navigate(`/Detailpage/${contentId}`, { state: camping });
+
   };
 
   return (
@@ -76,7 +85,7 @@ function Camping({ camping, campingImg }) {
           <b>{camping.campingName}</b>
         </div>
         <div>
-          <div>{camping.doNm}</div>
+        {camping.operPdCl ?<div>{camping.operPdCl}</div>: <div>봄,여름,가을,겨울</div>}
           <div>{camping.addr1}</div>
         </div>
       </Description>
