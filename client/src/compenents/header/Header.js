@@ -251,6 +251,33 @@ export const LogOut = styled.button`
   }
 `;
 
+export const LogDelete = styled.button`
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 2.3rem;
+  width: 5rem;
+  border-radius: 0.7rem;
+  border-color: grey;
+  color: grey;
+  &:hover {
+    box-shadow: 2px 2px gray;
+    transition: 0.2s;
+  }
+  @media screen and (max-width: 1200px) {
+  }
+  @media screen and (max-width: 992px) {
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
+  @media screen and (max-width: 0px) {
+    display: none;
+  }
+`;
+
 function Header({ resetCondition, onSearch }) {
   let navigate = useNavigate();
   const mainpage = () => {
@@ -262,7 +289,7 @@ function Header({ resetCondition, onSearch }) {
   };
 
   function logout() {
-    axios.post("http://localhost:4002/auth/logout", {
+    axios.post(`${process.env.REACT_APP_CAMPER_SERVER}/auth/logout`, {
       headers: localStorage.user,
     });
     delete localStorage.user;
@@ -273,16 +300,18 @@ function Header({ resetCondition, onSearch }) {
   const [signUpModalOn, setSignUpModalOn] = useState(false);
   const [signInModalOn, setSignInModalOn] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [loginState, setLoginState] = useState(null)
+  const [loginState, setLoginState] = useState(null);
 
   function logkeep() {
-    axios.get("http://localhost:4002/auth/").then(function (res) {
-      setLoginState(res.data);
-    });
+    axios
+      .get(`${process.env.REACT_APP_CAMPER_SERVER}/auth/`)
+      .then(function (res) {
+        setLoginState(res.data);
+      });
   }
   useEffect(() => {
     logkeep();
-  });
+  }, []);
   const onClickSearch = () => {
     onSearch(searchText);
     navigate(`/`, {});
@@ -295,6 +324,22 @@ function Header({ resetCondition, onSearch }) {
       onSearch(searchText);
     }
   };
+  // console.log(loginState);
+  const userDelete = () => {
+    axios
+      .delete(`${process.env.REACT_APP_CAMPER_SERVER}/auth/delete`, {
+        data: { username: loginState },
+      })
+      .then(function (response) {
+        if (response.data === "회원탈퇴 성공.") {
+          delete localStorage.user;
+          setLoginState(null);
+          alert("회원탈퇴 완료");
+          window.location.assign(process.env.REACT_APP_CAMPER_HOME);
+        }
+      });
+  };
+
   return (
     <>
       <SignUpModal
@@ -320,7 +365,7 @@ function Header({ resetCondition, onSearch }) {
             </button>
           </SearchBar>
         </SearchContainer>
-        {loginState==="로그인이 필요합니다."?  (
+        {loginState === "로그인이 필요합니다." ? (
           <UserContainer>
             <a id="kakao" href={KAKAO_URL} className="kakaka">
               <img
@@ -340,15 +385,15 @@ function Header({ resetCondition, onSearch }) {
             </a>
             <UserLogin onClick={() => setSignInModalOn(true)}>
               <MdList size="30" color="gray" />
-              <MdAccountCircle
-                size="40"
-                color="gray"
-              />
+              <MdAccountCircle size="40" color="gray" />
             </UserLogin>
           </UserContainer>
-        ):(
-          <LogOut onClick={logout}>로그아웃</LogOut>
-        ) }
+        ) : (
+          <>
+            <LogOut onClick={logout}>로그아웃</LogOut>
+            <LogDelete onClick={userDelete}>회원탈퇴</LogDelete>
+          </>
+        )}
       </HeaderItemContainer>
     </>
   );
