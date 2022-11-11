@@ -6,7 +6,6 @@ const router = express.Router();
 router.route("/").get(async (req, res, next) => {
   try {
     const campings = await camping.findAll({
-      // limit: 500,
       // include: [{
       //   model: campingImageURL,
       //   attributes: ['id'],

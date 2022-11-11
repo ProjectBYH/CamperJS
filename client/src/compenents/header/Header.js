@@ -174,6 +174,7 @@ export const SearchBar = styled.div`
     border: 1px;
     text-align: center;
     cursor: pointer;
+    color: #505050;
   }
   input:focus {
     outline: none;
@@ -188,22 +189,25 @@ export const SearchBar = styled.div`
   input:focus::-webkit-input-placeholder,
   textarea:focus::-webkit-input-placeholder {
     /* WebKit browsers */
-    color: transparent;
+    color: #505050;
   }
+
   input:focus:-moz-placeholder,
   textarea:focus:-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: transparent;
+    color: #505050;
   }
+
   input:focus::-moz-placeholder,
   textarea:focus::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: transparent;
+    color: #505050;
   }
+
   input:focus:-ms-input-placeholder,
   textarea:focus:-ms-input-placeholder {
     /* Internet Explorer 10+ */
-    color: transparent;
+    color: #505050;
   }
 `;
 
@@ -237,16 +241,14 @@ export const UserInfo = styled.button`
   @media screen and (max-width: 992px) {
     display: none;
   }
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
   @media screen and (max-width: 576px) {
     display: none;
   }
   @media screen and (max-width: 0px) {
     display: none;
   }
-`
+`;
+
 
 function Header({ resetCondition, onSearch }) {
   
@@ -256,14 +258,19 @@ function Header({ resetCondition, onSearch }) {
   const [loginState, setLoginState] = useState({});
   const [username, setUserName] = useState(null);
   
+  if (!localStorage.getItem("search")) {
+    localStorage.setItem("search", "언제나 어디서든 즐겁게!");
+  }
+
   let navigate = useNavigate();
   
   const mainpage = () => {
     // 새창으로 띄우기
     // window.open("http://localhost:3000/")
     // 기존창 홈페이지로 보내기
-    window.location.assign(process.env.REACT_APP_CAMPER_HOME);
     resetCondition();
+    window.location.assign(process.env.REACT_APP_CAMPER_HOME);
+    localStorage.clear("search");
   };
 
   function logout() {
@@ -294,7 +301,8 @@ function Header({ resetCondition, onSearch }) {
   }, []);
   const onClickSearch = () => {
     onSearch(searchText);
-    navigate(`/`, {});
+    localStorage.setItem("search", searchText);
+    navigate(`/`, { state: searchText });
   };
   const onChangeHandler = (e) => {
     setSearchText(e.target.value);
@@ -302,6 +310,8 @@ function Header({ resetCondition, onSearch }) {
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
       onSearch(searchText);
+      localStorage.setItem("search", searchText);
+      navigate(`/`, { state: searchText });
     }
   };
 
@@ -319,7 +329,8 @@ function Header({ resetCondition, onSearch }) {
             <input
               onKeyPress={onKeyPress}
               onChange={onChangeHandler}
-              placeholder="언제나 어디서든 즐겁게!"
+              placeholder={localStorage.getItem("search")}
+              value={searchText}
             />
             <button onClick={onClickSearch}>
               <BiSearchAlt size={30} alt="search" />
