@@ -241,6 +241,7 @@ function Footer() {
   }
 
   const [signInModalOn, setSignInModalOn] = useState(false);
+
   return (
     
     <FooterItemContainer>
@@ -325,14 +326,14 @@ function Footer() {
         </TeamMember>
       </TeamMemberContainer>
       
-    {localStorage.user ? (
-          <LogOut onClick={logout}>
-            <GoSignOut size="30" color="gray" />
-            <div>
-            로그아웃
-            </div>
-            </LogOut>
-    ) : (<>
+    {localStorage.user==="로그인이 필요합니다." ? (
+      <LogOut onClick={logout}>
+        <GoSignOut size="30" color="gray" />
+        <div>
+        로그아웃
+        </div>
+        </LogOut>
+) : (<>
       <LoginModal show={signInModalOn} onHide={() => setSignInModalOn(false)} />
       <KakaoButton onClick={()=>KAKAO_URL}>
               <img
@@ -360,7 +361,7 @@ function Footer() {
         <div>로그인</div>
       </Login>
       </>
-    )}
+    )  }
  
     </FooterItemContainer>
   );

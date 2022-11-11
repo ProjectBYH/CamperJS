@@ -110,26 +110,7 @@ const SignUpModal = ({ show, onHide }) => {
       });
   };
 
-  // axios.post(`https://localhost:4002/auth/signup`,
-  //       {
-  //         username: userId,
-  //         password: userPwd,
-  //         name : userName,
-  //         email : userEmail,
-  //         phone : userPhone
-  //       })
-  //       .then(function (response) {
-  //         if(response.data.code === 201){
-  //           window.open("회원가입이 완료되었습니다")
-  //         } else {
-  //           let message = response.data.message;
-  //           if (response.data.code === 409) {
-  //             message = "이미 사용중인 아이디입니다."
-  //           }
-  //         }
-  //       }).catch(function (error) {
-  //         console.log(error);
-  //       })
+
 
   return (
     <Modal
@@ -154,7 +135,7 @@ const SignUpModal = ({ show, onHide }) => {
                   onChange={onChangeUserId}
                 />
                 {userIdError && (
-                  <div class="invalid-input">
+                  <div className="invalid-input">
                     영문혹은 숫자를 이용하여 4자 이상, 최대 20자로 입력해주세요
                   </div>
                 )}
@@ -171,7 +152,7 @@ const SignUpModal = ({ show, onHide }) => {
                   onChange={onChangeUserPwd}
                 />
                 {userPwdError && (
-                  <div class="invalid-input">
+                  <div className="invalid-input">
                     숫자, 영문, 특수문자 포함 8~20자를 입력해주세요.
                   </div>
                 )}
@@ -188,7 +169,7 @@ const SignUpModal = ({ show, onHide }) => {
                   onChange={onChangeUserPwdCheck}
                 />
                 {userPwdCheckError && !(userPwd === userPwdCheck) && (
-                  <div class="invalid-input">
+                  <div className="invalid-input">
                     입력하신 비밀번호와 일치하지 않습니다
                   </div>
                 )}
@@ -205,7 +186,7 @@ const SignUpModal = ({ show, onHide }) => {
                   onChange={onChangeUserName}
                 />
                 {userNameError && (
-                  <div class="invalid-input">
+                  <div className="invalid-input">
                     한글이나 영어만 사용하여 2~16글자로 입력해주세요.
                   </div>
                 )}
@@ -222,7 +203,7 @@ const SignUpModal = ({ show, onHide }) => {
                   onChange={onChangeUserEmail}
                 />
                 {userEmailError && (
-                  <div class="invalid-input">
+                  <div className="invalid-input">
                     올바른 형식의 메일주소를 입력해주세요.
                   </div>
                 )}
@@ -239,7 +220,7 @@ const SignUpModal = ({ show, onHide }) => {
                   onChange={onChangeUserPhone}
                 />
                 {userPhoneError && (
-                  <div class="invalid-input">
+                  <div className="invalid-input">
                     총 11자리의 숫자를 입력해주세요.
                   </div>
                 )}
@@ -248,7 +229,7 @@ const SignUpModal = ({ show, onHide }) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button block variant="info" type="button" onClick={signUp}>
+          <Button variant="info" type="button" onClick={signUp}>
             회원가입
           </Button>
           <Button onClick={onHide}>Close</Button>

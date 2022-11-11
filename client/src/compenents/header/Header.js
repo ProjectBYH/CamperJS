@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MdList, MdAccountCircle } from "react-icons/md";
 import { BiSearchAlt } from "react-icons/bi";
-import SignUpModal from "../modal/SignUpModal";
 import LoginModal from "../modal/LoginModal";
 import axios from "axios";
+import InfoModal from "../modal/InfoModal";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
+import {Button} from "react-bootstrap"
 const CLIENT_ID = process.env.REACT_APP_KAKAO_REST_API_KEY;
 const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -35,7 +36,7 @@ export const HeaderItemContainer = styled.div`
 export const Logo = styled.button`
   border: 0px solid black;
   background: white;
-  width: 15%;
+  width: 30%;
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -77,7 +78,7 @@ export const SearchContainer = styled.div`
 `;
 
 export const UserContainer = styled.div`
-  width: 20%;
+  width: 30%;
   display: flex;
   justify-content: end;
   align-items: center;
@@ -106,7 +107,7 @@ export const UserContainer = styled.div`
     white-space: nowrap;
     @media screen and (max-width: 1200px) {
     }
-    @media screen and (max-width: 992px) {
+    @media screen and (max-width: 992px) { 
       display: none;
     }
     @media screen and (max-width: 768px) {
@@ -176,7 +177,6 @@ export const SearchBar = styled.div`
   }
   input:focus {
     outline: none;
-    placeholder: none;
   }
   image {
     border: 0px;
@@ -224,21 +224,18 @@ export const UserLogin = styled.button`
   }
 `;
 
-export const LogOut = styled.button`
-  margin-top: auto;
-  margin-bottom: auto;
-  height: 2.3rem;
-  width: 5rem;
-  border-radius: 0.7rem;
-  border-color: grey;
-  color: grey;
-  &:hover {
-    box-shadow: 2px 2px gray;
+export const UserInfo = styled.button`
+    font-family: 'GothicA1-Regular';
+    background-color: white;
+    border: 0px;
+    &:hover {
+    box-shadow: 0px 2px gray;
     transition: 0.2s;
   }
   @media screen and (max-width: 1200px) {
   }
   @media screen and (max-width: 992px) {
+    display: none;
   }
   @media screen and (max-width: 768px) {
     display: none;
@@ -249,37 +246,18 @@ export const LogOut = styled.button`
   @media screen and (max-width: 0px) {
     display: none;
   }
-`;
-
-export const LogDelete = styled.button`
-  margin-top: auto;
-  margin-bottom: auto;
-  height: 2.3rem;
-  width: 5rem;
-  border-radius: 0.7rem;
-  border-color: grey;
-  color: grey;
-  &:hover {
-    box-shadow: 2px 2px gray;
-    transition: 0.2s;
-  }
-  @media screen and (max-width: 1200px) {
-  }
-  @media screen and (max-width: 992px) {
-  }
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-  @media screen and (max-width: 576px) {
-    display: none;
-  }
-  @media screen and (max-width: 0px) {
-    display: none;
-  }
-`;
+`
 
 function Header({ resetCondition, onSearch }) {
+  
+  const [signInModalOn, setSignInModalOn] = useState(false);
+  const [InfoModalOn, setInfoModalOn] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [loginState, setLoginState] = useState({});
+  const [username, setUserName] = useState(null);
+  
   let navigate = useNavigate();
+  
   const mainpage = () => {
     // 새창으로 띄우기
     // window.open("http://localhost:3000/")
@@ -297,17 +275,19 @@ function Header({ resetCondition, onSearch }) {
     window.location.assign(process.env.REACT_APP_CAMPER_HOME);
   }
 
-  const [signUpModalOn, setSignUpModalOn] = useState(false);
-  const [signInModalOn, setSignInModalOn] = useState(false);
-  const [searchText, setSearchText] = useState("");
-  const [loginState, setLoginState] = useState(null);
+
+
+  const loginData = (loginState) => {
+    setLoginState(loginState)
+  }
 
   function logkeep() {
     axios
       .get(`${process.env.REACT_APP_CAMPER_SERVER}/auth/`)
       .then(function (res) {
         setLoginState(res.data);
-      });
+        if(res.data==="로그인이 필요합니다."){}else{setUserName(res.data.name)}
+      })
   }
   useEffect(() => {
     logkeep();
@@ -324,28 +304,9 @@ function Header({ resetCondition, onSearch }) {
       onSearch(searchText);
     }
   };
-  // console.log(loginState);
-  const userDelete = () => {
-    axios
-      .delete(`${process.env.REACT_APP_CAMPER_SERVER}/auth/delete`, {
-        data: { username: loginState },
-      })
-      .then(function (response) {
-        if (response.data === "회원탈퇴 성공.") {
-          delete localStorage.user;
-          setLoginState(null);
-          alert("회원탈퇴 완료");
-          window.location.assign(process.env.REACT_APP_CAMPER_HOME);
-        }
-      });
-  };
 
   return (
     <>
-      <SignUpModal
-        show={signUpModalOn}
-        onHide={() => setSignUpModalOn(false)}
-      />
       <LoginModal show={signInModalOn} onHide={() => setSignInModalOn(false)} />
       <HeaderItemContainer>
         <Logo onClick={mainpage}>
@@ -389,14 +350,16 @@ function Header({ resetCondition, onSearch }) {
             </UserLogin>
           </UserContainer>
         ) : (
-          <>
-            <LogOut onClick={logout}>로그아웃</LogOut>
-            <LogDelete onClick={userDelete}>회원탈퇴</LogDelete>
-          </>
+          <UserContainer>
+            <InfoModal show={InfoModalOn} onHide={() => setInfoModalOn(false) } loginData={loginData} UserInfo={loginState}/>
+            <UserInfo onClick={()=> setInfoModalOn(true)}><b>{username}</b>님 반갑습니다</UserInfo>
+            <Button variant='warning' onClick={logout}>로그아웃</Button>
+          </UserContainer>
         )}
       </HeaderItemContainer>
     </>
   );
+  
 }
 
 export default Header;

@@ -70,7 +70,7 @@ router.post("/logout", function (req, res, next) {
 router.get("/", isLoggedIn, async (req, res, next) => {
   try {
     if (req.user) {
-      res.json({ "req.user": req.user });
+      res.json(req.user);
     } else {
       return res.status(200).json(null);
     }
@@ -82,23 +82,14 @@ router.get("/", isLoggedIn, async (req, res, next) => {
 
 //회원탈퇴 (미완성)
 router.delete("/delete", isLoggedIn, async (req, res, next) => {
-  // console.log(req.body.username["req.user"].id);
   user
     .destroy({
       where: {
-        id: req.body.username["req.user"].id,
+        id: req.body.id,
       },
     })
     .then(() => {
-      // req.body.destroy((err) => {
       res.status(200).send("회원탈퇴 성공.");
-      // if (err) {
-      //   res.status(400).send("you are currently not logined");
-      // }
-      // else {
-      //   res.status(200).send("회원탈퇴 성공.");
-      // }
-      // });
     })
     .catch((err) => {
       res.status(500).send(err);
@@ -115,14 +106,9 @@ router.get(
     failureRedirect: "/",
   }),
   (req, res) => {
-    // console.log("req", req.user.dataValues);
-    // console.log("res", res.user.dataValues);
-    // const userKakao = JSON.stringify(req.user.dataValues);
-    // res.status(200).json(JSON.stringify(users)
-    // window.localStorage.setItem("userKakao", userKakao);
-    // res.status(200).json(JSON.stringify(userKakao));
+
     res.redirect(process.env.CALL_BACK);
-    // res.status(200).redirect(process.env.CALL_BACK + { userKakao });
+
   }
 );
 

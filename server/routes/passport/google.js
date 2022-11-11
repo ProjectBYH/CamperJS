@@ -18,13 +18,13 @@ module.exports = () => {
           if (exUser) {
             done(null, exUser);
           } else {
-            const newUser = await user.create({
+            const googleUser = await user.create({
               email: profile._json.email,
               name: profile.displayName,
               username: profile.id,
               loginType: "google",
             });
-            done(null, newUser);
+            done(null, googleUser);
           }
         } catch (error) {
           console.error(error);
