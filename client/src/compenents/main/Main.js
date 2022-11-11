@@ -20,16 +20,9 @@ const Wrapper = styled.div`
   -ms-overflow-style: none; /* for Internet Explorer, Edge */
   scrollbar-width: none; /* for Firefox */
 
-  &::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, and Opera */
-  }
+
 `;
 
-// function findImg(imageUrl){
-
-//     if (!imageUrl) {return "img/image1.webp"}
-//     else {return imageUrl}
-//   }
 
 function Main({ isLoading, filteredData }) {
   if (!filteredData) {

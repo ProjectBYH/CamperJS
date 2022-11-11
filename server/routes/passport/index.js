@@ -6,10 +6,12 @@ const { user } = require("../../models");
 
 module.exports = () => {
   passport.serializeUser((users, done) => {
+    // console.log("serializeUser", users);
     done(null, users.id);
   });
 
   passport.deserializeUser(async (id, done) => {
+    // console.log("deserializeUser", id);
     user
       .findOne({ where: { id } })
       .then((users) => done(null, users))

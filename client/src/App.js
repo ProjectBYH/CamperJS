@@ -14,7 +14,6 @@ function App() {
   const fetchcampingData = async () => {
     try {
       setError(null);
-      // setCampingData(campingData);
       setLoading(true);
       const response = await axios.get(process.env.REACT_APP_CAMPING);
       setCampingData(response.data);
@@ -43,7 +42,12 @@ function App() {
   };
 
   const onTag = (searchText) => {
-    if (searchText === "산" || searchText === "계곡" || searchText === "숲" || searchText === "해변") {
+    if (
+      searchText === "산" ||
+      searchText === "계곡" ||
+      searchText === "숲" ||
+      searchText === "해변"
+    ) {
       const filterLctCl = campingData.filter((camping) =>
         camping.lctCl.includes(searchText)
       );
@@ -67,16 +71,21 @@ function App() {
         (camping) => !(camping[searchText] === "불가능")
       );
       setFilteredData(filteranimlCmgCl);
-    } else if (searchText === "전기" ||searchText === "무선인터넷" ||searchText === "온수" ||searchText === "편의점") {
+    } else if (
+      searchText === "전기" ||
+      searchText === "무선인터넷" ||
+      searchText === "온수" ||
+      searchText === "편의점"
+    ) {
       const filterSbrsCl = campingData.filter((camping) =>
         camping.sbrsCl.includes(searchText)
       );
       setFilteredData(filterSbrsCl);
-    } else if(searchText === "낚시"){
-      const filterposblFcltyCl  = campingData.filter((camping) =>
-      camping.posblFcltyCl.includes(searchText)
-    );
-    setFilteredData(filterposblFcltyCl);
+    } else if (searchText === "낚시") {
+      const filterposblFcltyCl = campingData.filter((camping) =>
+        camping.posblFcltyCl.includes(searchText)
+      );
+      setFilteredData(filterposblFcltyCl);
     }
   };
 

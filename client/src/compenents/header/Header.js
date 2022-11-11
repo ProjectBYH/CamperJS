@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { MdList, MdAccountCircle } from "react-icons/md";
 import { BiSearchAlt } from "react-icons/bi";
@@ -41,7 +41,6 @@ export const Logo = styled.button`
   justify-content: start;
   align-items: center;
   cursor: pointer;
-
   @media screen and (max-width: 1200px) {
   }
   @media screen and (max-width: 992px) {
@@ -62,7 +61,6 @@ export const SearchContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   @media screen and (max-width: 1200px) {
   }
   @media screen and (max-width: 992px) {
@@ -83,7 +81,6 @@ export const UserContainer = styled.div`
   display: flex;
   justify-content: end;
   align-items: center;
-
   @media screen and (max-width: 1200px) {
   }
   @media screen and (max-width: 992px) {
@@ -97,11 +94,9 @@ export const UserContainer = styled.div`
   @media screen and (max-width: 0px) {
     display: none;
   }
-
   a {
     margin: 0.5rem;
   }
-
   div {
     margin-top: auto;
     margin-bottom: auto;
@@ -109,7 +104,6 @@ export const UserContainer = styled.div`
     margin-right: 5px;
     height: 30px;
     white-space: nowrap;
-
     @media screen and (max-width: 1200px) {
     }
     @media screen and (max-width: 992px) {
@@ -259,12 +253,38 @@ export const LogOut = styled.button`
     display: none;
   }
 `;
+export const LogDelete = styled.button`
+  margin-top: auto;
+  margin-bottom: auto;
+  height: 2.3rem;
+  width: 5rem;
+  border-radius: 0.7rem;
+  border-color: grey;
+  color: grey;
+  &:hover {
+    box-shadow: 2px 2px gray;
+    transition: 0.2s;
+  }
+  @media screen and (max-width: 1200px) {
+  }
+  @media screen and (max-width: 992px) {
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
+  @media screen and (max-width: 0px) {
+    display: none;
+  }
+`;
 
 function Header({ resetCondition, onSearch }) {
-  // localStorage.setItem("search", "언제나 어디서든 즐겁게!");
   if (!localStorage.getItem("search")) {
     localStorage.setItem("search", "언제나 어디서든 즐겁게!");
   }
+
   let navigate = useNavigate();
   const mainpage = () => {
     // 새창으로 띄우기
@@ -276,24 +296,34 @@ function Header({ resetCondition, onSearch }) {
   };
 
   function logout() {
-    axios.post("http://localhost:4002/auth/logout", {
+    axios.post(`${process.env.REACT_APP_CAMPER_SERVER}/auth/logout`, {
       headers: localStorage.user,
     });
     delete localStorage.user;
+    setLoginState(null);
     window.location.assign(process.env.REACT_APP_CAMPER_HOME);
   }
 
   const [signUpModalOn, setSignUpModalOn] = useState(false);
   const [signInModalOn, setSignInModalOn] = useState(false);
-
   const [searchText, setSearchText] = useState("");
+  const [loginState, setLoginState] = useState(null);
 
+  function logkeep() {
+    axios
+      .get(`${process.env.REACT_APP_CAMPER_SERVER}/auth/`)
+      .then(function (res) {
+        setLoginState(res.data);
+      });
+  }
+  useEffect(() => {
+    logkeep();
+  }, []);
   const onClickSearch = () => {
     onSearch(searchText);
     localStorage.setItem("search", searchText);
     navigate(`/`, { state: searchText });
   };
-
   const onChangeHandler = (e) => {
     setSearchText(e.target.value);
   };
@@ -304,6 +334,21 @@ function Header({ resetCondition, onSearch }) {
       navigate(`/`, { state: searchText });
     }
   };
+  const userDelete = () => {
+    axios
+      .delete(`${process.env.REACT_APP_CAMPER_SERVER}/auth/delete`, {
+        data: { username: loginState },
+      })
+      .then(function (response) {
+        if (response.data === "회원탈퇴 성공.") {
+          delete localStorage.user;
+          setLoginState(null);
+          alert("회원탈퇴 완료");
+          window.location.assign(process.env.REACT_APP_CAMPER_HOME);
+        }
+      });
+  };
+
   return (
     <>
       <SignUpModal
@@ -330,9 +375,7 @@ function Header({ resetCondition, onSearch }) {
             </button>
           </SearchBar>
         </SearchContainer>
-        {localStorage.user ? (
-          <LogOut onClick={logout}>로그아웃</LogOut>
-        ) : (
+        {loginState === "로그인이 필요합니다." ? (
           <UserContainer>
             <a id="kakao" href={KAKAO_URL} className="kakaka">
               <img
@@ -350,15 +393,16 @@ function Header({ resetCondition, onSearch }) {
                 alt="구글 로그인"
               />
             </a>
-            <UserLogin>
+            <UserLogin onClick={() => setSignInModalOn(true)}>
               <MdList size="30" color="gray" />
-              <MdAccountCircle
-                size="40"
-                color="gray"
-                onClick={() => setSignInModalOn(true)}
-              />
+              <MdAccountCircle size="40" color="gray" />
             </UserLogin>
           </UserContainer>
+        ) : (
+          <>
+            <LogOut onClick={logout}>로그아웃</LogOut>
+            <LogDelete onClick={userDelete}>회원탈퇴</LogDelete>
+          </>
         )}
       </HeaderItemContainer>
     </>
