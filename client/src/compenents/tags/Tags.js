@@ -85,8 +85,8 @@ export const Tagname = styled.div`
   margin: 0;
   border: 0px solid black;
   width: 75px;
-    font-size: 12px;
-    font-family: 'MaplestoryOTFLight';
+  font-size: 12px;
+  font-family: "MaplestoryOTFLight";
 `;
 
 function Tags({ onTag }) {
@@ -519,11 +519,7 @@ function Tags({ onTag }) {
           <GiCampingTent size={30} />
           <Tagname>글램핑</Tagname>
         </TagButton>
-        <TagButton
-          getColor16={getColor17}
-          onClick={onClickTagBeach}
-          key="해변"
-        >
+        <TagButton getColor16={getColor17} onClick={onClickTagBeach} key="해변">
           <FaUmbrellaBeach size={30} />
           <Tagname>해변</Tagname>
         </TagButton>
@@ -568,11 +564,7 @@ function Tags({ onTag }) {
           <Tagname>파쇄석</Tagname>
         </TagButton>
 
-        <TagButton
-          getColor13={getColor13}
-          onClick={onClickTagElect}
-          key="전기"
-        >
+        <TagButton getColor13={getColor13} onClick={onClickTagElect} key="전기">
           <GiElectric size={30} />
           <Tagname>전기</Tagname>
         </TagButton>
@@ -625,7 +617,6 @@ function Tags({ onTag }) {
           <MdOutlineLocalGroceryStore size={30} />
           <Tagname>편의점</Tagname>
         </TagButton>
-
       </Tag>
     </TagItemContainer>
   );
