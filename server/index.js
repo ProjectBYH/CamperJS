@@ -57,7 +57,7 @@ app.use("/auth", authRouter);
 //   res.send("안녕 세계!");
 // });
 
-const HTTPS_PORT = process.env.DATABASE_PORT || 4002;
+const HTTPS_PORT = process.env.DATABASE_PORT || 8080;
 
 let server;
 //인증키 파일이 존재할 경우 https로 실행
